@@ -4,111 +4,109 @@
 
 @layer base {
   :root {
-    /* NextStep Career Path – Feldgrau & Wheat */
-    /* Feldgrau: #3A4B41 => 145 13% 26% */
-    /* Wheat:    #E6CFA7 => 38 56% 78%  */
-    --background: 145 13% 18%; /* deep Feldgrau */
-    --foreground: 38 56% 90%; /* soft Wheat for readable text */
+    /* NextStep – Red & Black theme */
+    --background: 0 0% 4%; /* near black */
+    --foreground: 0 0% 96%; /* light gray text */
 
-    --card: 145 13% 26%; /* Feldgrau surface */
-    --card-foreground: 38 56% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 145 13% 26%;
-    --popover-foreground: 38 56% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 38 56% 78%; /* Wheat as primary */
-    --primary-foreground: 145 13% 18%;
+    --primary: 0 72% 50%; /* vibrant red */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 145 13% 22%; /* slightly lighter Feldgrau */
-    --secondary-foreground: 38 56% 90%;
+    --secondary: 0 0% 12%; /* dark gray surface */
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 145 13% 22%;
-    --muted-foreground: 38 30% 70%; /* desaturated Wheat for body text */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 38 56% 78%; /* Wheat accents */
-    --accent-foreground: 145 13% 18%;
+    --accent: 0 72% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --success: 145 25% 32%; /* a bit brighter green for success */
-    --success-foreground: 38 56% 95%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
 
     --warning: 41 96% 60%;
     --warning-foreground: 222 47% 11%;
 
-    --destructive: 0 72% 48%;
-    --destructive-foreground: 38 56% 96%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 145 13% 32%;
-    --input: 145 13% 32%;
-    --ring: 38 56% 78%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 72% 50%;
 
     --radius: 0.9rem;
 
-    /* Custom tokens for NextStep Career Path – gradients removed for a flat, minimal look */
-    --panel-primary: hsl(145 13% 22%);
-    --panel-accent: hsl(38 56% 78%);
-    --panel-card: hsl(145 13% 24%);
-    
-    --shadow-soft: 0 10px 26px hsl(145 13% 10% / 0.45);
-    --shadow-medium: 0 14px 32px hsl(145 13% 8% / 0.5);
-    --shadow-large: 0 20px 50px hsl(145 13% 6% / 0.6);
-    /* Sleek glows: very subtle, for premium feel */
-    --shadow-glow: 0 0 0 1px hsl(38 56% 78% / 0.18), 0 6px 18px hsl(145 13% 10% / 0.22);
-    --shadow-accent-glow: 0 0 0 1px hsl(38 40% 84% / 0.18), 0 6px 16px hsl(145 13% 10% / 0.2);
+    /* Custom tokens tuned for red & black */
+    --panel-primary: hsl(0 0% 7%);
+    --panel-accent: hsl(0 72% 18%);
+    --panel-card: hsl(0 0% 10%);
 
-    --sidebar-background: 145 13% 20%;
-    --sidebar-foreground: 38 56% 88%;
-    --sidebar-primary: 38 56% 78%;
-    --sidebar-primary-foreground: 145 13% 18%;
-    --sidebar-accent: 145 13% 24%;
-    --sidebar-accent-foreground: 38 56% 88%;
-    --sidebar-border: 145 13% 32%;
-    --sidebar-ring: 38 56% 78%;
+    --shadow-soft: 0 20px 40px hsl(0 0% 0% / 0.55);
+    --shadow-medium: 0 24px 60px hsl(0 0% 0% / 0.6);
+    --shadow-large: 0 30px 80px hsl(0 0% 0% / 0.65);
+    /* Subtle red glows for premium feel */
+    --shadow-glow: 0 0 0 1px hsl(0 72% 50% / 0.18), 0 6px 18px hsl(0 0% 0% / 0.7);
+    --shadow-accent-glow: 0 0 0 1px hsl(0 72% 60% / 0.2), 0 6px 16px hsl(0 0% 0% / 0.65);
+
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 0 72% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 72% 50%;
   }
 
   .dark {
-    /* Dark mode aligned with Feldgrau & Wheat palette */
-    --background: 145 13% 12%;
-    --foreground: 38 56% 88%;
+    /* Dark mode – slightly deeper black, same red accents */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 94%;
 
-    --card: 145 13% 20%;
-    --card-foreground: 38 56% 88%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 145 13% 20%;
-    --popover-foreground: 38 56% 88%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 38 56% 78%;
-    --primary-foreground: 145 13% 12%;
+    --primary: 0 72% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 145 13% 24%;
-    --secondary-foreground: 38 56% 88%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 92%;
 
-    --muted: 145 13% 22%;
-    --muted-foreground: 38 30% 72%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 38 56% 78%;
-    --accent-foreground: 145 13% 12%;
+    --accent: 0 72% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --success: 145 25% 32%;
-    --success-foreground: 38 56% 96%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
 
     --warning: 41 96% 60%;
     --warning-foreground: 222 47% 11%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 38 56% 96%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 145 13% 28%;
-    --input: 145 13% 28%;
-    --ring: 38 56% 78%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 72% 50%;
 
-    --sidebar-background: 145 13% 10%;
-    --sidebar-foreground: 38 56% 88%;
-    --sidebar-primary: 38 56% 78%;
-    --sidebar-primary-foreground: 145 13% 12%;
-    --sidebar-accent: 145 13% 24%;
-    --sidebar-accent-foreground: 38 56% 88%;
-    --sidebar-border: 145 13% 28%;
-    --sidebar-ring: 38 56% 78%;
+    --sidebar-background: 0 0% 2%;
+    --sidebar-foreground: 0 0% 94%;
+    --sidebar-primary: 0 72% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 94%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 72% 50%;
   }
 }
 

@@ -3,6 +3,7 @@ import { useUserStore } from '@/stores/userStore';
 import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Target, Map, Trophy, Zap } from 'lucide-react';
 import { useEffect } from 'react';
+import Footer from '@/components/Footer';
 
 const features = [
   {
@@ -144,44 +145,10 @@ export default function Index() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="container mx-auto px-6 py-24">
-        <div className="relative overflow-hidden rounded-3xl gradient-primary p-12 text-center shadow-glow">
-          <div className="relative z-10">
-            <h2 className="text-3xl font-bold text-primary-foreground">
-              Ready to Map Your Future?
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-primary-foreground/80">
-              Join thousands of students who are already on their way to their
-              dream careers with NextStep AI.
-            </p>
-            <Button
-              variant="secondary"
-              size="xl"
-              className="mt-8"
-              onClick={() => navigate('/onboarding')}
-            >
-              Get Started for Free
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      
+           
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-card">
-        <div className="container mx-auto flex items-center justify-between px-6 py-8">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
-              <Sparkles className="h-4 w-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold text-foreground">NextStep AI</span>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            © 2024 NextStep AI. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
