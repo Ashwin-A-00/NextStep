@@ -72,7 +72,7 @@ export default function Dashboard() {
             <h1 className="text-3xl font-bold text-foreground">
               Welcome back{profile?.name ? `, ${profile.name}` : ''}!
             </h1>
-            <Hand className="h-8 w-8 text-yellow-500" />
+            {/*<Hand className="h-8 w-8 text-yellow-500" />*/}
           </div>
           <p className="mt-1 text-text-muted">
             {profile?.careerGoal

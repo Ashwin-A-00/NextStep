@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Sparkles } from "lucide-react";
 
 type PlanType = "Free" | "ProjectChart" | "MentorPlus";
 
@@ -28,12 +27,7 @@ export default function Login() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-8 shadow-lg">
         <div className="flex flex-col items-center mb-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-glow mb-2">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-semibold text-foreground">
-            NextStep AI
-          </span>
+          <img src="/logo.png" alt="NextStep AI" className="h-32 w-auto" />
         </div>
 
         <h1 className="text-2xl font-semibold text-foreground mb-1 text-center">

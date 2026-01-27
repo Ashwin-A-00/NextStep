@@ -465,7 +465,7 @@ export default function ProjectChart() {
                       value={answer}
                       onChange={(e) => handleAnswerChange(question.id, e.target.value)}
                       placeholder="Write your solution here..."
-                      className="min-h-[120px] text-sm"
+                      className="min-h-[120px] text-sm bg-gray-900 text-gray-200"
                     />
                   </div>
 

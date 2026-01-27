@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Loader2, Sparkles, UserRound } from "lucide-react";
+import { ArrowLeft, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Mentor = {
@@ -95,9 +95,11 @@ export default function MentorChat() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-glow">
-              <UserRound className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img
+              src={mentor.photoUrl}
+              alt={mentor.name}
+              className="h-10 w-10 rounded-full border border-border object-cover bg-muted"
+            />
             <div>
               <p className="text-xs text-muted-foreground mb-0.5">Chatting with</p>
               <h1 className="text-sm font-semibold text-foreground flex items-center gap-2">

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { CalendarClock, Info, Lock, UserRound } from "lucide-react";
+import { CalendarClock, Info, Lock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -115,7 +115,7 @@ export default function MentorSupport() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto flex items-center gap-3 px-6 py-4">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-glow">
-            <UserRound className="h-5 w-5 text-primary-foreground" />
+            <Users className="h-5 w-5 text-primary-foreground" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2">
