@@ -37,8 +37,12 @@ export function CareerCard({ career, className, onSelect }: CareerCardProps) {
       </div>
 
       {/* Icon */}
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-primary shadow-glow text-2xl">
-        {career.icon}
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-primary shadow-glow">
+        {typeof career.icon === 'string' ? (
+          <span className="text-2xl">{career.icon}</span>
+        ) : (
+          career.icon && <career.icon className="h-7 w-7 text-white" />
+        )}
       </div>
 
       {/* Content */}

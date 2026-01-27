@@ -25,26 +25,26 @@ export function StatCard({
   return (
     <div
       className={cn(
-        'rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:shadow-medium',
-        variant === 'primary' && 'border-primary/20 bg-primary/5',
-        variant === 'accent' && 'border-accent/20 bg-accent/5',
+        'rounded-xl border border-divider bg-bg-secondary p-6 transition-all duration-200 hover:shadow-card',
+        variant === 'primary' && 'border-accent bg-bg-secondary',
+        variant === 'accent' && 'border-accent bg-bg-secondary',
         className
       )}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="mt-2 text-3xl font-bold text-foreground">{value}</p>
+          <p className="text-sm font-medium text-text-muted">{title}</p>
+          <p className="mt-2 text-3xl font-bold text-text-primary">{value}</p>
           {subtitle && (
-            <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+            <p className="mt-1 text-sm text-text-muted">{subtitle}</p>
           )}
           {trend && trendValue && (
             <div
               className={cn(
                 'mt-2 inline-flex items-center gap-1 text-xs font-medium',
                 trend === 'up' && 'text-accent',
-                trend === 'down' && 'text-destructive',
-                trend === 'neutral' && 'text-muted-foreground'
+                trend === 'down' && 'text-accent',
+                trend === 'neutral' && 'text-muted'
               )}
             >
               {trend === 'up' && '↑'}
@@ -55,17 +55,14 @@ export function StatCard({
         </div>
         <div
           className={cn(
-            'flex h-12 w-12 items-center justify-center rounded-xl',
-            variant === 'default' && 'bg-secondary',
-            variant === 'primary' && 'gradient-primary shadow-glow',
-            variant === 'accent' && 'gradient-accent shadow-accent-glow'
+            'flex h-12 w-12 items-center justify-center rounded-lg bg-bg-secondary',
+            (variant === 'primary' || variant === 'accent') && 'border border-accent bg-accent/10',
           )}
         >
           <Icon
             className={cn(
               'h-6 w-6',
-              variant === 'default' && 'text-foreground',
-              (variant === 'primary' || variant === 'accent') && 'text-primary-foreground'
+              (variant === 'primary' || variant === 'accent') ? 'text-accent' : 'text-text-primary'
             )}
           />
         </div>

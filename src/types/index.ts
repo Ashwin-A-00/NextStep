@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react';
+
 export interface UserProfile {
   id: string;
   name: string;
@@ -50,7 +52,7 @@ export interface CareerPath {
   requiredSkills: string[];
   averageSalary: string;
   growthRate: string;
-  icon: string;
+  icon: string | LucideIcon;
 }
 
 export interface SyllabusAnalysis {

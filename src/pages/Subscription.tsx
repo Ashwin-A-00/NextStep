@@ -34,7 +34,7 @@ export default function Subscription() {
   const mentorPlusLabel = isAnnual ? "Per year (student discount)" : "Per month";
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-bg flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-6xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
@@ -43,22 +43,22 @@ export default function Subscription() {
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white">
             Pricing Plans For Everyone
           </h1>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-white max-w-xl mx-auto">
             Start with a free plan or unlock guided project charts and 1‑on‑1 mentor
             support with our paid plans.
           </p>
 
           {/* Billing toggle */}
-          <div className="mt-4 inline-flex items-center rounded-full bg-card border border-border p-1 text-xs font-medium">
+          <div className="mt-8 flex items-center justify-center gap-4">
             <button
               type="button"
-              className={`rounded-full px-4 py-1 ${
+              className={`px-6 py-2 rounded-lg font-medium transition-all text-sm ${
                 billingCycle === "Monthly"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground"
+                  ? "bg-accent text-white"
+                  : "bg-bg-secondary text-white border border-divider"
               }`}
               onClick={() => setBillingCycle("Monthly")}
             >
@@ -66,14 +66,17 @@ export default function Subscription() {
             </button>
             <button
               type="button"
-              className={`rounded-full px-4 py-1 ${
+              className={`px-6 py-2 rounded-lg font-medium transition-all text-sm ${
                 billingCycle === "Annually"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground"
+                  ? "bg-accent text-white"
+                  : "bg-bg-secondary text-white border border-divider"
               }`}
               onClick={() => setBillingCycle("Annually")}
             >
               Annually
+              {billingCycle === "Annually" && (
+                <span className="ml-2 inline-block rounded bg-green-500 px-2 py-0.5 text-xs text-white">Save 20%</span>
+              )}
             </button>
           </div>
         </div>

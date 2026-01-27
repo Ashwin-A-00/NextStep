@@ -13,6 +13,10 @@ import {
   Sparkles,
   Award,
   Rocket,
+  Code2,
+  BarChart3,
+  Briefcase,
+  Hand,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { CareerPath } from '@/types';
@@ -27,7 +31,7 @@ const mockCareerPaths: CareerPath[] = [
     requiredSkills: ['JavaScript', 'React', 'Node.js', 'System Design', 'DSA'],
     averageSalary: '$120k',
     growthRate: '+22%',
-    icon: '💻',
+    icon: Code2,
   },
   {
     id: '2',
@@ -37,7 +41,7 @@ const mockCareerPaths: CareerPath[] = [
     requiredSkills: ['Python', 'Machine Learning', 'Statistics', 'SQL'],
     averageSalary: '$130k',
     growthRate: '+36%',
-    icon: '📊',
+    icon: BarChart3,
   },
   {
     id: '3',
@@ -47,7 +51,7 @@ const mockCareerPaths: CareerPath[] = [
     requiredSkills: ['Strategy', 'Analytics', 'Communication', 'Agile'],
     averageSalary: '$140k',
     growthRate: '+18%',
-    icon: '🚀',
+    icon: Briefcase,
   },
 ];
 
@@ -64,10 +68,13 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">
-            Welcome back{profile?.name ? `, ${profile.name}` : ''}! 👋
-          </h1>
-          <p className="mt-1 text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-bold text-foreground">
+              Welcome back{profile?.name ? `, ${profile.name}` : ''}!
+            </h1>
+            <Hand className="h-8 w-8 text-yellow-500" />
+          </div>
+          <p className="mt-1 text-text-muted">
             {profile?.careerGoal
               ? `Your journey to becoming a ${profile.careerGoal} continues`
               : 'Discover your perfect career path'}
@@ -136,7 +143,7 @@ export default function Dashboard() {
               <span className="font-medium text-foreground">60%</span>
             </div>
             <div className="h-2 overflow-hidden rounded-full bg-secondary">
-              <div className="h-full w-[60%] rounded-full gradient-primary" />
+              <div className="h-full w-[60%] rounded-full bg-white" />
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Soft Skills</span>
