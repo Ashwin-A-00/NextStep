@@ -9,6 +9,7 @@ import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import Roadmap from "./pages/Roadmap";
 import Careers from "./pages/Careers";
+import CareerDetail from "./pages/CareerDetail";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/layout/AppLayout";
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/career/:id" element={<CareerDetail />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="*" element={<NotFound />} />

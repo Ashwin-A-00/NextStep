@@ -186,7 +186,11 @@ export default function Dashboard() {
                   </span>
                 </div>
               </div>
-              <Button variant="hero" className="shrink-0">
+              <Button
+                variant="hero"
+                className="shrink-0"
+                onClick={() => navigate('/roadmap')}
+              >
                 <Sparkles className="mr-2 h-4 w-4" />
                 Start Now
               </Button>

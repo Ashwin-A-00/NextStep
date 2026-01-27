@@ -1,11 +1,10 @@
+import { useState } from 'react';
 import { useUserStore } from '@/stores/userStore';
 import { LevelBadge } from '@/components/dashboard/LevelBadge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import {
-  User,
   GraduationCap,
   Target,
   Heart,
@@ -13,11 +12,9 @@ import {
   Edit2,
   LogOut,
   Award,
-  Trophy,
-  Star,
-  Zap,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ProfileEditWizard } from '@/components/profile/ProfileEditWizard';
 
 const mockBadges = [
   { id: '1', name: 'Early Adopter', icon: '🌟', description: 'Joined NextStep AI' },
@@ -28,6 +25,9 @@ const mockBadges = [
 export default function Profile() {
   const { profile, resetOnboarding } = useUserStore();
   const navigate = useNavigate();
+
+  const [editOpen, setEditOpen] = useState(false);
+  const [editStep, setEditStep] = useState<1 | 2 | 3 | 4>(1);
 
   const handleReset = () => {
     resetOnboarding();
@@ -46,7 +46,7 @@ export default function Profile() {
         </div>
         <Button variant="outline" onClick={handleReset}>
           <LogOut className="mr-2 h-4 w-4" />
-          Start Over
+          Log Out
         </Button>
       </div>
 
@@ -77,7 +77,7 @@ export default function Profile() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-foreground">1</p>
-                <p className="text-xs text-muted-foreground">Certs</p>
+                <p className="text-xs text-muted-foreground">Certifications</p>
               </div>
               <div>
                 <p className="text-2xl font-bold text-foreground">
@@ -120,7 +120,14 @@ export default function Profile() {
                 <GraduationCap className="h-5 w-5 text-primary" />
                 Education
               </h3>
-              <Button variant="ghost" size="sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditStep(1);
+                  setEditOpen(true);
+                }}
+              >
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit
               </Button>
@@ -148,19 +155,28 @@ export default function Profile() {
                 <BookOpen className="h-5 w-5 text-primary" />
                 Syllabus Topics
               </h3>
-              <Button variant="ghost" size="sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditStep(2);
+                  setEditOpen(true);
+                }}
+              >
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit
               </Button>
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {(profile?.syllabusTopics || ['Data Structures', 'Algorithms', 'DBMS']).map(
-                (topic) => (
-                  <Badge key={topic} variant="secondary">
-                    {topic}
-                  </Badge>
-                )
-              )}
+              {(profile?.syllabusTopics || [
+                'Data Structures',
+                'Algorithms',
+                'DBMS',
+              ]).map((topic) => (
+                <Badge key={topic} variant="secondary">
+                  {topic}
+                </Badge>
+              ))}
             </div>
           </div>
 
@@ -171,7 +187,14 @@ export default function Profile() {
                 <Heart className="h-5 w-5 text-primary" />
                 Interests
               </h3>
-              <Button variant="ghost" size="sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditStep(3);
+                  setEditOpen(true);
+                }}
+              >
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit
               </Button>
@@ -192,7 +215,14 @@ export default function Profile() {
                 <Target className="h-5 w-5 text-primary" />
                 Career Goal
               </h3>
-              <Button variant="ghost" size="sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditStep(4);
+                  setEditOpen(true);
+                }}
+              >
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit
               </Button>
@@ -210,6 +240,13 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Full-screen wizard that reuses onboarding UI for editing */}
+      <ProfileEditWizard
+        open={editOpen}
+        initialStep={editStep}
+        onClose={() => setEditOpen(false)}
+      />
     </div>
   );
 }
