@@ -1,18 +1,19 @@
+
 import { useUserStore } from '@/stores/userStore';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Laptop, Palette, BarChart2, TrendingUp, DollarSign, Megaphone, Microscope, HeartPulse, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const interests = [
-  { id: 'technology', label: 'Technology', icon: '💻', description: 'Software, AI, and innovation' },
-  { id: 'design', label: 'Design', icon: '🎨', description: 'UI/UX, graphics, and creativity' },
-  { id: 'data', label: 'Data', icon: '📊', description: 'Analytics, ML, and insights' },
-  { id: 'business', label: 'Business', icon: '📈', description: 'Strategy, management, and growth' },
-  { id: 'finance', label: 'Finance', icon: '💰', description: 'Banking, investments, and economics' },
-  { id: 'marketing', label: 'Marketing', icon: '📣', description: 'Branding, content, and growth' },
-  { id: 'research', label: 'Research', icon: '🔬', description: 'Academia, R&D, and innovation' },
-  { id: 'healthcare', label: 'Healthcare', icon: '🏥', description: 'Medicine, wellness, and biotech' },
-  { id: 'education', label: 'Education', icon: '📚', description: 'Teaching and knowledge sharing' },
+  { id: 'technology', label: 'Technology', icon: Laptop, description: 'Software, AI, and innovation' },
+  { id: 'design', label: 'Design', icon: Palette, description: 'UI/UX, graphics, and creativity' },
+  { id: 'data', label: 'Data', icon: BarChart2, description: 'Analytics, ML, and insights' },
+  { id: 'business', label: 'Business', icon: TrendingUp, description: 'Strategy, management, and growth' },
+  { id: 'finance', label: 'Finance', icon: DollarSign, description: 'Banking, investments, and economics' },
+  { id: 'marketing', label: 'Marketing', icon: Megaphone, description: 'Branding, content, and growth' },
+  { id: 'research', label: 'Research', icon: Microscope, description: 'Academia, R&D, and innovation' },
+  { id: 'healthcare', label: 'Healthcare', icon: HeartPulse, description: 'Medicine, wellness, and biotech' },
+  { id: 'education', label: 'Education', icon: BookOpen, description: 'Teaching and knowledge sharing' },
 ];
 
 interface StepInterestsProps {
@@ -72,7 +73,9 @@ export function StepInterests({ onNext, onBack }: StepInterestsProps) {
                     <Check className="h-3 w-3 text-primary-foreground" />
                   </div>
                 )}
-                <span className="text-2xl">{interest.icon}</span>
+                <span className="text-2xl">
+                  <interest.icon className="h-7 w-7 text-secondary" />
+                </span>
                 <span className="mt-2 font-semibold text-foreground">
                   {interest.label}
                 </span>

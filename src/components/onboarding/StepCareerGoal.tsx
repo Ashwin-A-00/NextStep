@@ -84,7 +84,7 @@ export function StepCareerGoal({ onComplete, onBack }: StepCareerGoalProps) {
 
       <div className="mx-auto max-w-lg space-y-6">
         {/* Toggle for knowing career goal */}
-        <div className="flex items-center justify-between rounded-xl bg-secondary/50 p-4">
+        <div className="flex items-center justify-between rounded-xl bg-bg-secondary/50 p-4">
           <div>
             <Label htmlFor="knows-goal" className="text-foreground">
               I know what I want to become

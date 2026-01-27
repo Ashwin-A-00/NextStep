@@ -220,14 +220,11 @@ export default function Roadmap() {
   const progress = Math.round((earnedXP / totalXP) * 100);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background grid */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(38_56%_78%/0.12),transparent_55%),radial-gradient(circle_at_bottom,hsl(145_13%_18%/0.85),transparent_60%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(hsl(var(--muted)/0.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--muted)/0.05)_1px,transparent_1px)] bg-[size:80px_80px]" />
+<div className="min-h-screen bg-bg relative overflow-hidden">
 
       <div className="relative min-h-screen flex flex-col">
         {/* Header */}
-        <header className="border-b border-border bg-card/60 backdrop-blur-md sticky top-0 z-40">
+        <header className="border-b border-divider bg-bg-secondary/60 backdrop-blur-md sticky top-0 z-40">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link to="/dashboard">
@@ -257,9 +254,9 @@ export default function Roadmap() {
               </div>
               <div className="hidden sm:flex flex-col items-end gap-1">
                 <p className="text-xs text-muted-foreground">Completion</p>
-                <div className="h-1.5 w-32 overflow-hidden rounded-full bg-secondary/40">
+                <div className="h-1.5 w-32 overflow-hidden rounded-full bg-bg-secondary/40">
                   <div
-                    className="h-full rounded-full bg-primary/80 transition-all duration-700"
+                    className="h-full rounded-full bg-accent transition-all duration-700"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -314,12 +311,12 @@ export default function Roadmap() {
                     border transition-all duration-300 backdrop-blur-md
                     ${
                       node.status === 'completed'
-                        ? 'bg-success/20 border-success text-success-foreground shadow-soft'
+                        ? 'bg-green-500/20 border-green-500/80 text-green-500 shadow-card animate-pulse-glow'
                         : node.status === 'available'
-                        ? 'bg-signature-gold/10 border-signature-gold/60 text-signature-gold shadow-accent-glow animate-pulse-glow'
+                        ? 'bg-accent/10 border-accent/50 text-accent shadow-card animate-pulse-glow'
                         : node.status === 'in_progress'
-                        ? 'bg-signature-gold/20 border-signature-gold text-signature-gold shadow-accent-glow'
-                        : 'bg-background/20 border-border/50 text-muted-foreground'
+                        ? 'bg-accent/20 border-accent/70 text-accent shadow-card'
+                        : 'bg-bg-secondary/20 border-2 border-dotted border-accent/40 text-text-muted outline outline-2 outline-offset-2 outline-accent/30'
                     }
                   `}
                 >
@@ -334,7 +331,7 @@ export default function Roadmap() {
                 <p
                   className={`
                     text-xs font-mono text-center mt-2 max-w-28 truncate
-                    ${node.status === 'locked' ? 'text-muted-foreground' : 'text-foreground'}
+                    {node.status === 'locked' ? 'text-text-muted' : 'text-text-primary'}
                   `}
                 >
                   {node.title}
@@ -344,20 +341,20 @@ export default function Roadmap() {
           </div>
 
           {/* Legend */}
-          <div className="absolute bottom-4 left-4 bg-card/90 backdrop-blur-sm border border-border rounded-md p-4 shadow-soft">
-            <p className="text-xs font-mono text-muted-foreground mb-2">LEGEND</p>
-            <div className="space-y-2 text-xs font-mono">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-success" />
-                <span>Completed</span>
+          <div className="absolute bottom-4 left-4 bg-bg-secondary border border-accent/20 rounded-lg p-4 shadow-medium">
+            <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-3">Legend</p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                <span className="text-xs text-white">Completed</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded border border-signature-gold bg-signature-gold/20 shadow-accent-glow" />
-                <span>Available</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full border border-accent bg-accent/20" />
+                <span className="text-xs text-white">Available</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-muted/40 border border-muted-foreground/30" />
-                <span>Locked</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-white/20 border border-white/40" />
+                <span className="text-xs text-white">Locked</span>
               </div>
             </div>
           </div>

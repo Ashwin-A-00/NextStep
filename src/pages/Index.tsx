@@ -72,7 +72,7 @@ export default function Index() {
             <span className="text-gradient-primary">Career Success</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-2xl text-lg" style={{ color: '#FFFFFF' }}>
             NextStep AI analyzes your syllabus, interests, and goals to create a
             customized roadmap for your dream career. No more confusion about
             what to learn next.
@@ -131,10 +131,10 @@ export default function Index() {
               <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary shadow-glow transition-transform group-hover:scale-110">
                 <feature.icon className="h-6 w-6 text-primary-foreground" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-foreground">
+              <h3 className="mt-4 text-lg font-semibold text-green-500">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-green-400">
                 {feature.description}
               </p>
               <div className="absolute bottom-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-sm font-semibold text-muted-foreground">

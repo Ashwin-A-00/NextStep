@@ -57,7 +57,7 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
     <div className="animate-fade-in">
       <div className="mb-8 text-center">
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-glow">
-          <BookOpen className="h-8 w-8 text-primary-foreground" />
+          <BookOpen className="h-8 w-8 text-secondary drop-shadow-none" />
         </div>
         <h2 className="text-2xl font-bold text-foreground">
           What are you studying?
@@ -83,7 +83,7 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
             onClick={() => addTopic(inputValue.trim())}
             disabled={!inputValue.trim()}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 text-secondary drop-shadow-none" />
           </Button>
         </div>
 
@@ -105,7 +105,7 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
                     onClick={() => removeTopic(topic)}
                     className="ml-1 rounded-full p-0.5 hover:bg-primary/20"
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-3 w-3 text-secondary drop-shadow-none" />
                   </button>
                 </Badge>
               ))}
@@ -114,18 +114,18 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
         )}
 
         {/* Suggestions */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-muted-foreground">
+        <div className="space-y-4">
+          <label className="text-base font-semibold text-white">
             Suggested topics (click to add)
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {suggestedTopics
               .filter((topic) => !onboarding.syllabusTopics.includes(topic))
               .map((topic) => (
                 <Badge
                   key={topic}
                   variant="outline"
-                  className="cursor-pointer transition-all hover:border-primary hover:bg-primary/5"
+                  className="cursor-pointer transition-all hover:border-accent hover:bg-accent/10 px-4 py-2 text-sm font-medium border-white/20 text-white hover:text-white"
                   onClick={() => addTopic(topic)}
                 >
                   {topic}
@@ -137,7 +137,7 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
         {/* Navigation */}
         <div className="flex gap-3 pt-4">
           <Button variant="outline" onClick={onBack} className="flex-1">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <ArrowLeft className="mr-2 h-4 w-4 text-secondary drop-shadow-none" />
             Back
           </Button>
           <Button
@@ -147,7 +147,7 @@ export function StepSyllabus({ onNext, onBack }: StepSyllabusProps) {
             className="flex-1"
           >
             Continue
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-5 w-5 text-secondary drop-shadow-none" />
           </Button>
         </div>
 

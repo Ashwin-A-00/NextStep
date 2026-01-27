@@ -1,3 +1,58 @@
+/* --- NextStep AI Premium Dark Theme --- */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap');
+
+:root {
+  --color-bg: #0B0B0B;
+  --color-bg-secondary: #141414;
+  --color-divider: #1F1F1F;
+  --color-text-primary: #E63946;
+  --color-text-muted: #FFFFFF;
+  --color-accent: #E63946;
+  --color-accent-hover: #d62828;
+  --radius: 8px;
+  --shadow-card: 0 2px 16px 0 rgba(0,0,0,0.18);
+  --container-max: 1280px;
+  --font-heading: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6, .heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #E63946 !important;
+}
+
+p, span, a, li, div, section, article {
+  color: #FFFFFF !important;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-divider);
+  margin: 2.5rem 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,8 +92,8 @@
     --muted: 15 12% 44%; /* Cocoa Ash */
     --muted-foreground: 33 33% 85%; /* Slightly darker Cream Latte */
 
-    /* Accent - Espresso Teal for AI thinking, hover interactions */
-    --accent: 170 42% 30%; /* Espresso Teal */
+    /* Accent - Red for all UI elements */
+    --accent: 4 69% 60%; /* Red */
     --accent-foreground: 33 33% 93%; /* Cream Latte */
 
     /* Success - Forest Brew for completed nodes */
@@ -54,13 +109,13 @@
 
     --border: 15 25% 20%; /* Dark Mocha border */
     --input: 15 25% 16%; /* Dark Mocha input */
-    --ring: 170 42% 30%; /* Espresso Teal ring */
+    --ring: 4 69% 60%; /* Red ring */
 
     --radius: 0.9rem;
 
     /* Custom tokens */
     --panel-primary: hsl(15 25% 13%); /* Dark Mocha */
-    --panel-accent: hsl(170 42% 30%); /* Espresso Teal */
+    --panel-accent: hsl(4 69% 60%); /* Red */
     --panel-card: hsl(15 25% 13%); /* Dark Mocha */
 
     /* Signature Flash - Burnished Gold with soft glow (blur 10px, opacity 18%) */
@@ -132,17 +187,20 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+
 
   body {
-    @apply bg-background text-foreground antialiased;
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans, 'Space Grotesk', 'Inter', 'sans-serif');
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -268,21 +326,22 @@
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+
 @keyframes pulse-glow {
-  /* Burnished Gold signature flash with soft glow */
+  /* Reduced glow effect */
   0% {
-    box-shadow: 0 0 0 0 hsl(38 45% 58% / 0.18);
+    box-shadow: 0 0 0 0 hsl(45, 100%, 70%, 0.15), 0 0 0 0 hsl(38 45% 58% / 0.12);
   }
-  70% {
-    box-shadow: 0 0 10px 2px hsl(38 45% 58% / 0.18);
+  60% {
+    box-shadow: 0 0 12px 2px hsl(45, 100%, 70%, 0.25), 0 0 6px 1px hsl(38 45% 58% / 0.18);
   }
   100% {
-    box-shadow: 0 0 0 0 hsl(38 45% 58% / 0);
+    box-shadow: 0 0 0 0 hsl(45, 100%, 70%, 0);
   }
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 2.4s cubic-bezier(.4,0,.6,1) infinite;
 }
 
 /* Signature Gold utility class for Next Step node, active skill path, level-up pulse */
