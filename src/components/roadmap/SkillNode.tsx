@@ -14,7 +14,7 @@ export function SkillNode({ skill, onClick, className }: SkillNodeProps) {
       return 'border-accent bg-accent/10 shadow-accent-glow';
     }
     if (skill.isUnlocked) {
-      return 'border-primary bg-primary/5 shadow-glow cursor-pointer hover:scale-105 hover:shadow-lg';
+      return 'border-signature-gold bg-signature-gold/5 shadow-accent-glow cursor-pointer hover:scale-105 hover:shadow-lg';
     }
     return 'border-border bg-muted/50 opacity-60';
   };
@@ -35,8 +35,8 @@ export function SkillNode({ skill, onClick, className }: SkillNodeProps) {
       );
     }
     return (
-      <div className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full gradient-primary shadow-glow animate-node-pulse">
-        <Play className="h-3 w-3 text-primary-foreground" />
+      <div className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-signature-gold shadow-accent-glow animate-node-pulse">
+        <Play className="h-3 w-3 text-card" />
       </div>
     );
   };
@@ -48,7 +48,7 @@ export function SkillNode({ skill, onClick, className }: SkillNodeProps) {
       case 'soft':
         return 'bg-accent/10 text-accent';
       case 'certification':
-        return 'bg-warning/10 text-warning';
+        return 'bg-signature-gold/10 text-signature-gold';
       case 'course':
         return 'bg-secondary text-secondary-foreground';
       default:

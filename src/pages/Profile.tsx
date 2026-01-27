@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useUserStore } from '@/stores/userStore';
 import { LevelBadge } from '@/components/dashboard/LevelBadge';
 import { Button } from '@/components/ui/button';
@@ -10,10 +10,10 @@ import {
   Heart,
   BookOpen,
   Edit2,
-  LogOut,
   Award,
+  Camera,
+  User,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { ProfileEditWizard } from '@/components/profile/ProfileEditWizard';
 
 const mockBadges = [
@@ -23,15 +23,14 @@ const mockBadges = [
 ];
 
 export default function Profile() {
-  const { profile, resetOnboarding, setProfile } = useUserStore();
-  const navigate = useNavigate();
+  const { profile, setProfile } = useUserStore();
 
   const [editOpen, setEditOpen] = useState(false);
   const [editStep, setEditStep] = useState<1 | 2 | 3 | 4>(1);
-  const [isEditingUsername, setIsEditingUsername] = useState(false);
   const [usernameInput, setUsernameInput] = useState('');
+  const [profileImage, setProfileImage] = useState<string | null>(null);
 
-  // Initialize username from profile or localStorage
+  // Initialize username and profile image from localStorage
   useEffect(() => {
     const stored =
       profile?.name ||
@@ -39,13 +38,42 @@ export default function Profile() {
         ? localStorage.getItem('nextstep-username') || ''
         : '');
     setUsernameInput(stored || 'Student');
+    
+    const storedImage = typeof window !== 'undefined'
+      ? localStorage.getItem('nextstep-profile-image')
+      : null;
+    if (storedImage) {
+      setProfileImage(storedImage);
+    }
   }, [profile?.name]);
 
   const effectiveUsername = usernameInput || profile?.name || 'Student';
 
-  const handleReset = () => {
-    resetOnboarding();
-    navigate('/');
+  const currentPlan = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    const stored = localStorage.getItem('nextstep-subscription-plan');
+    if (stored === 'Free' || stored === 'ProjectChart' || stored === 'MentorPlus') return stored;
+    return null;
+  }, []);
+
+  const planLabel =
+    currentPlan === 'MentorPlus'
+      ? 'Mentor Plus'
+      : currentPlan === 'ProjectChart'
+      ? 'Project Chart'
+      : 'Free';
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const imageDataUrl = reader.result as string;
+      setProfileImage(imageDataUrl);
+      localStorage.setItem('nextstep-profile-image', imageDataUrl);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -53,70 +81,16 @@ export default function Profile() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Your Profile</h1>
-          <p className="mt-1 text-muted-foreground">
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold text-foreground">Your Profile</h1>
+            <Badge variant="secondary" className="h-7 px-3 text-xs">
+              Plan: {planLabel}
+            </Badge>
+          </div>
+          <p className="text-muted-foreground">
             Manage your account and view your progress
           </p>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Username:</span>{' '}
-            </span>
-            {isEditingUsername ? (
-              <form
-                className="flex items-center gap-2"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const newName = usernameInput.trim() || 'Student';
-                  if (profile) {
-                    setProfile({ ...profile, name: newName });
-                  }
-                  if (typeof window !== 'undefined') {
-                    localStorage.setItem('nextstep-username', newName);
-                  }
-                  setUsernameInput(newName);
-                  setIsEditingUsername(false);
-                }}
-              >
-                <input
-                  className="h-8 rounded-md border border-border bg-background px-2 text-sm text-foreground"
-                  value={usernameInput}
-                  onChange={(e) => setUsernameInput(e.target.value)}
-                  autoFocus
-                />
-                <Button type="submit" size="xs" variant="outline">
-                  Save
-                </Button>
-                <Button
-                  type="button"
-                  size="xs"
-                  variant="ghost"
-                  onClick={() => setIsEditingUsername(false)}
-                >
-                  Cancel
-                </Button>
-              </form>
-            ) : (
-              <>
-                <span className="text-sm text-foreground font-medium">
-                  {effectiveUsername}
-                </span>
-                <Button
-                  type="button"
-                  size="xs"
-                  variant="ghost"
-                  className="h-6 px-2 text-xs"
-                  onClick={() => setIsEditingUsername(true)}
-                >
-                  Edit
-                </Button>
-              </>
-            )}
-          </div>
         </div>
-        <Button variant="outline" onClick={handleReset}>
-          <LogOut className="mr-2 h-4 w-4" />
-          Log Out
-        </Button>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
@@ -124,13 +98,53 @@ export default function Profile() {
         <div className="lg:col-span-1">
           <div className="rounded-2xl border border-border bg-card p-6">
             <div className="text-center">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full gradient-primary shadow-glow text-3xl">
-                {profile?.name?.[0]?.toUpperCase() || '👤'}
+              <div className="relative mx-auto w-24 h-24 mb-4">
+                {profileImage ? (
+                  <img
+                    src={profileImage}
+                    alt={effectiveUsername}
+                    className="w-full h-full rounded-full object-cover border-2 border-border"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center rounded-full gradient-primary shadow-glow text-3xl border-2 border-border">
+                    {effectiveUsername?.[0]?.toUpperCase() || <User className="h-10 w-10" />}
+                  </div>
+                )}
+                <label className="absolute bottom-0 right-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground cursor-pointer hover:bg-primary/90 transition-colors shadow-lg">
+                  <Camera className="h-4 w-4" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </label>
               </div>
-              <h2 className="mt-4 text-xl font-semibold text-foreground">
-                {profile?.name || 'Student'}
-              </h2>
-              <p className="text-sm text-muted-foreground">{profile?.branch}</p>
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <h2 className="text-xl font-semibold text-foreground">
+                  {effectiveUsername}
+                </h2>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 px-2"
+                  onClick={() => {
+                    const newName = prompt('Enter your username', effectiveUsername) || '';
+                    const trimmed = newName.trim();
+                    if (!trimmed) return;
+                    if (profile) {
+                      setProfile({ ...profile, name: trimmed });
+                    }
+                    localStorage.setItem('nextstep-username', trimmed);
+                    setUsernameInput(trimmed);
+                  }}
+                  title="Edit username"
+                >
+                  <Edit2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">{profile?.branch || 'Computer Science'}</p>
             </div>
 
             <div className="mt-6">

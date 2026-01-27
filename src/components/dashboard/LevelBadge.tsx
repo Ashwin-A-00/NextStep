@@ -24,8 +24,8 @@ export function LevelBadge({ level, xp, className }: LevelBadgeProps) {
   return (
     <div className={cn('flex items-center gap-3', className)}>
       <div className="relative">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary shadow-glow">
-          <LevelIcon className="h-6 w-6 text-primary-foreground" />
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-signature-gold shadow-accent-glow">
+          <LevelIcon className="h-6 w-6 text-card" />
         </div>
         <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground shadow-sm">
           {level}
@@ -40,7 +40,7 @@ export function LevelBadge({ level, xp, className }: LevelBadgeProps) {
         </div>
         <div className="mt-1 h-2 overflow-hidden rounded-full bg-secondary">
           <div
-            className="h-full rounded-full gradient-accent transition-all duration-500"
+            className="h-full rounded-full bg-signature-gold transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
           />
         </div>

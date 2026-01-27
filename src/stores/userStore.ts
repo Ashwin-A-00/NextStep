@@ -41,9 +41,13 @@ export const useUserStore = create<UserState>()(
 
       completeOnboarding: () => {
         const { onboarding } = get();
+        const storedUsername =
+          typeof window !== 'undefined'
+            ? localStorage.getItem('nextstep-username')?.trim()
+            : undefined;
         const newProfile: UserProfile = {
           id: crypto.randomUUID(),
-          name: 'Student',
+          name: storedUsername || 'Student',
           degree: onboarding.degree,
           branch: onboarding.branch,
           syllabusTopics: onboarding.syllabusTopics,

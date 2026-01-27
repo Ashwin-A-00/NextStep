@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { ArrowRight, ArrowLeft, Sparkles, Target } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Sparkles, Target, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const suggestedCareers = [
@@ -28,6 +28,7 @@ interface StepCareerGoalProps {
 export function StepCareerGoal({ onComplete, onBack }: StepCareerGoalProps) {
   const { onboarding, updateOnboarding } = useUserStore();
   const [customGoal, setCustomGoal] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCareerSelect = (career: string) => {
     updateOnboarding({ careerGoal: career });
@@ -39,7 +40,33 @@ export function StepCareerGoal({ onComplete, onBack }: StepCareerGoalProps) {
     }
   };
 
+  const handleGetRoadmap = () => {
+    setIsLoading(true);
+    // Show loading for 1.5 seconds before completing
+    setTimeout(() => {
+      onComplete();
+    }, 1500);
+  };
+
   const isValid = !onboarding.knowsCareerGoal || onboarding.careerGoal;
+
+  if (isLoading) {
+    return (
+      <div className="animate-fade-in flex flex-col items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card/80 px-8 py-6 shadow-lg">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <div className="text-center">
+            <p className="text-sm font-semibold text-foreground">
+              Creating your personalized roadmap...
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Analyzing your career goal and preparing your learning path
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="animate-fade-in">
@@ -150,8 +177,8 @@ export function StepCareerGoal({ onComplete, onBack }: StepCareerGoalProps) {
           </Button>
           <Button
             variant="hero"
-            onClick={onComplete}
-            disabled={!isValid}
+            onClick={handleGetRoadmap}
+            disabled={!isValid || isLoading}
             className="flex-1"
           >
             <Sparkles className="mr-2 h-5 w-5" />

@@ -316,9 +316,9 @@ export default function Roadmap() {
                       node.status === 'completed'
                         ? 'bg-success/20 border-success text-success-foreground shadow-soft'
                         : node.status === 'available'
-                        ? 'bg-primary/10 border-primary/60 text-primary shadow-glow animate-pulse-glow'
+                        ? 'bg-signature-gold/10 border-signature-gold/60 text-signature-gold shadow-accent-glow animate-pulse-glow'
                         : node.status === 'in_progress'
-                        ? 'bg-warning/20 border-warning text-warning shadow-soft'
+                        ? 'bg-signature-gold/20 border-signature-gold text-signature-gold shadow-accent-glow'
                         : 'bg-background/20 border-border/50 text-muted-foreground'
                     }
                   `}
@@ -352,7 +352,7 @@ export default function Roadmap() {
                 <span>Completed</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded border border-primary bg-primary/20" />
+                <div className="w-4 h-4 rounded border border-signature-gold bg-signature-gold/20 shadow-accent-glow" />
                 <span>Available</span>
               </div>
               <div className="flex items-center gap-2">
