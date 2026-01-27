@@ -65,6 +65,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "signature-gold": {
+          DEFAULT: "hsl(var(--signature-gold))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

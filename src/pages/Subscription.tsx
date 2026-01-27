@@ -1,29 +1,41 @@
-import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 
 type PlanType = "Free" | "ProjectChart" | "MentorPlus";
+type BillingCycle = "Monthly" | "Annually";
 
 export default function Subscription() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [plan, setPlan] = useState<PlanType>("Free");
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>("Monthly");
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    const state = location.state as { highlightPlan?: PlanType } | null;
+    if (state?.highlightPlan) {
+      setPlan(state.highlightPlan);
+    }
+  }, [location.state]);
 
-    localStorage.setItem("nextstep-subscription-plan", plan);
-
-    // Continue to onboarding after choosing the plan
-    navigate("/onboarding");
+  const handleSelectPlan = (selectedPlan: PlanType) => {
+    setPlan(selectedPlan);
+    localStorage.setItem("nextstep-subscription-plan", selectedPlan);
+    navigate("/order-summary", { state: { plan: selectedPlan, billingCycle } });
   };
+
+  const isAnnual = billingCycle === "Annually";
+
+  const projectChartPrice = isAnnual ? "₹1,499" : "₹149";
+  const projectChartLabel = isAnnual ? "Per year (student discount)" : "Per month";
+
+  const mentorPlusPrice = isAnnual ? "₹3,999" : "₹399";
+  const mentorPlusLabel = isAnnual ? "Per year (student discount)" : "Per month";
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-6xl space-y-10"
-      >
+      <div className="w-full max-w-6xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
           <div className="flex items-center justify-center gap-2">
@@ -39,17 +51,27 @@ export default function Subscription() {
             support with our paid plans.
           </p>
 
-          {/* Billing toggle (visual only for now) */}
+          {/* Billing toggle */}
           <div className="mt-4 inline-flex items-center rounded-full bg-card border border-border p-1 text-xs font-medium">
             <button
               type="button"
-              className="rounded-full bg-primary text-primary-foreground px-4 py-1"
+              className={`rounded-full px-4 py-1 ${
+                billingCycle === "Monthly"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground"
+              }`}
+              onClick={() => setBillingCycle("Monthly")}
             >
               Monthly
             </button>
             <button
               type="button"
-              className="rounded-full px-4 py-1 text-muted-foreground"
+              className={`rounded-full px-4 py-1 ${
+                billingCycle === "Annually"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground"
+              }`}
+              onClick={() => setBillingCycle("Annually")}
             >
               Annually
             </button>
@@ -84,7 +106,7 @@ export default function Subscription() {
             <Button
               type="button"
               className="mt-6 w-full rounded-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold"
-              onClick={() => setPlan("Free")}
+              onClick={() => handleSelectPlan("Free")}
             >
               Get Started Free
             </Button>
@@ -108,8 +130,8 @@ export default function Subscription() {
                 Project charts
               </p>
               <h2 className="text-lg font-semibold text-foreground">Project Chart Plan</h2>
-              <p className="text-3xl font-bold text-foreground">₹499</p>
-              <p className="text-xs text-muted-foreground">Per month</p>
+              <p className="text-3xl font-bold text-foreground">{projectChartPrice}</p>
+              <p className="text-xs text-muted-foreground">{projectChartLabel}</p>
               <ul className="mt-4 space-y-2 text-xs text-muted-foreground">
                 <li>Detailed project charts for your projects.</li>
                 <li>Step‑by‑step milestones and checklists.</li>
@@ -120,7 +142,7 @@ export default function Subscription() {
             <Button
               type="button"
               className="mt-6 w-full rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold"
-              onClick={() => setPlan("ProjectChart")}
+              onClick={() => handleSelectPlan("ProjectChart")}
             >
               Get Started Now
             </Button>
@@ -141,8 +163,8 @@ export default function Subscription() {
                 Mentor support
               </p>
               <h2 className="text-lg font-semibold text-foreground">Mentor Plus</h2>
-              <p className="text-3xl font-bold text-foreground">₹999</p>
-              <p className="text-xs text-muted-foreground">Per month</p>
+              <p className="text-3xl font-bold text-foreground">{mentorPlusPrice}</p>
+              <p className="text-xs text-muted-foreground">{mentorPlusLabel}</p>
               <ul className="mt-4 space-y-2 text-xs text-muted-foreground">
                 <li>Everything in Project Chart Plan.</li>
                 <li>Personal mentor for each user.</li>
@@ -153,22 +175,14 @@ export default function Subscription() {
             <Button
               type="button"
               className="mt-6 w-full rounded-full bg-pink-500 hover:bg-pink-600 text-white text-sm font-semibold"
-              onClick={() => setPlan("MentorPlus")}
+              onClick={() => handleSelectPlan("MentorPlus")}
             >
               Get Started Now
             </Button>
           </button>
         </div>
 
-        <div className="flex justify-center">
-          <Button
-            type="submit"
-            className="mt-4 px-8 rounded-full"
-          >
-            Continue to Onboarding
-          </Button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

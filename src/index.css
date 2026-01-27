@@ -4,109 +4,130 @@
 
 @layer base {
   :root {
-    /* NextStep – Red & Black theme */
-    --background: 0 0% 4%; /* near black */
-    --foreground: 0 0% 96%; /* light gray text */
+    /* NextStep – Dark Mocha theme */
+    /* Dark Mocha #2A1E1A = hsl(15, 25%, 13%) - Cards, Panels, Sidebars */
+    /* Cream Latte #F3EDE4 = hsl(33, 33%, 93%) - Primary text, Icons, Headings */
+    /* Burnished Gold #C7A46A = hsl(38, 45%, 58%) - Next Step node, Active skill path, Level-up pulse */
+    /* Espresso Teal #2E6F64 = hsl(170, 42%, 30%) - AI thinking animation, Hover micro-interactions */
+    /* Cocoa Ash #7C6A63 = hsl(15, 12%, 44%) - Locked nodes, secondary text */
+    /* Forest Brew #355F4E = hsl(158, 28%, 29%) - Completed nodes, success */
+    /* Oxblood Roast #6B1F1A = hsl(4, 60%, 26%) - Errors only */
+    
+    /* Background - Darker version of Dark Mocha */
+    --background: 15 25% 10%; /* Very dark mocha for app background */
+    /* Text on dark background - Cream Latte */
+    --foreground: 33 33% 93%; /* Cream Latte - Primary text, Icons, Headings */
 
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 96%;
+    /* Cards, Panels use Dark Mocha */
+    --card: 15 25% 13%; /* Dark Mocha - Cards, panels */
+    --card-foreground: 33 33% 93%; /* Cream Latte text on Dark Mocha */
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 15 25% 13%; /* Dark Mocha */
+    --popover-foreground: 33 33% 93%; /* Cream Latte */
 
-    --primary: 0 72% 50%; /* vibrant red */
-    --primary-foreground: 0 0% 100%;
+    /* Primary - Dark Mocha */
+    --primary: 15 25% 13%; /* Dark Mocha */
+    --primary-foreground: 33 33% 93%; /* Cream Latte */
 
-    --secondary: 0 0% 12%; /* dark gray surface */
-    --secondary-foreground: 0 0% 96%;
+    /* Secondary - Slightly lighter Dark Mocha for hover states */
+    --secondary: 15 25% 18%; /* Slightly lighter Dark Mocha */
+    --secondary-foreground: 33 33% 93%; /* Cream Latte */
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    /* Muted - Cocoa Ash for locked nodes, secondary text */
+    --muted: 15 12% 44%; /* Cocoa Ash */
+    --muted-foreground: 33 33% 85%; /* Slightly darker Cream Latte */
 
-    --accent: 0 72% 50%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Espresso Teal for AI thinking, hover interactions */
+    --accent: 170 42% 30%; /* Espresso Teal */
+    --accent-foreground: 33 33% 93%; /* Cream Latte */
 
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
+    /* Success - Forest Brew for completed nodes */
+    --success: 158 28% 29%; /* Forest Brew */
+    --success-foreground: 33 33% 93%; /* Cream Latte */
 
-    --warning: 41 96% 60%;
-    --warning-foreground: 222 47% 11%;
+    --warning: 38 45% 58%; /* Burnished Gold */
+    --warning-foreground: 15 25% 13%; /* Dark Mocha */
 
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 0% 100%;
+    /* Destructive - Oxblood Roast for errors */
+    --destructive: 4 60% 26%; /* Oxblood Roast */
+    --destructive-foreground: 33 33% 93%; /* Cream Latte */
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 72% 50%;
+    --border: 15 25% 20%; /* Dark Mocha border */
+    --input: 15 25% 16%; /* Dark Mocha input */
+    --ring: 170 42% 30%; /* Espresso Teal ring */
 
     --radius: 0.9rem;
 
-    /* Custom tokens tuned for red & black */
-    --panel-primary: hsl(0 0% 7%);
-    --panel-accent: hsl(0 72% 18%);
-    --panel-card: hsl(0 0% 10%);
+    /* Custom tokens */
+    --panel-primary: hsl(15 25% 13%); /* Dark Mocha */
+    --panel-accent: hsl(170 42% 30%); /* Espresso Teal */
+    --panel-card: hsl(15 25% 13%); /* Dark Mocha */
 
-    --shadow-soft: 0 20px 40px hsl(0 0% 0% / 0.55);
-    --shadow-medium: 0 24px 60px hsl(0 0% 0% / 0.6);
-    --shadow-large: 0 30px 80px hsl(0 0% 0% / 0.65);
-    /* Subtle red glows for premium feel */
-    --shadow-glow: 0 0 0 1px hsl(0 72% 50% / 0.18), 0 6px 18px hsl(0 0% 0% / 0.7);
-    --shadow-accent-glow: 0 0 0 1px hsl(0 72% 60% / 0.2), 0 6px 16px hsl(0 0% 0% / 0.65);
+    /* Signature Flash - Burnished Gold with soft glow (blur 10px, opacity 18%) */
+    --signature-gold: 38 45% 58%; /* Burnished Gold */
+    --signature-glow: 0 0 10px hsl(38 45% 58% / 0.18); /* Soft glow effect */
 
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 0 0% 92%;
-    --sidebar-primary: 0 72% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 0 72% 50%;
+    --shadow-soft: 0 20px 40px hsl(15 25% 10% / 0.55);
+    --shadow-medium: 0 24px 60px hsl(15 25% 10% / 0.6);
+    --shadow-large: 0 30px 80px hsl(15 25% 10% / 0.65);
+    --shadow-glow: 0 0 0 1px hsl(15 25% 13% / 0.3), 0 6px 18px hsl(15 25% 10% / 0.7);
+    --shadow-accent-glow: 0 0 10px hsl(38 45% 58% / 0.18), 0 6px 16px hsl(15 25% 10% / 0.65);
+
+    /* Sidebar uses Dark Mocha */
+    --sidebar-background: 15 25% 13%; /* Dark Mocha */
+    --sidebar-foreground: 33 33% 93%; /* Cream Latte text */
+    --sidebar-primary: 170 42% 30%; /* Espresso Teal for active items */
+    --sidebar-primary-foreground: 33 33% 93%; /* Cream Latte */
+    --sidebar-accent: 15 25% 18%; /* Slightly lighter Dark Mocha accent */
+    --sidebar-accent-foreground: 33 33% 93%; /* Cream Latte */
+    --sidebar-border: 15 25% 20%; /* Dark Mocha border */
+    --sidebar-ring: 170 42% 30%; /* Espresso Teal */
   }
 
   .dark {
-    /* Dark mode – slightly deeper black, same red accents */
-    --background: 0 0% 2%;
-    --foreground: 0 0% 94%;
+    /* Same as root - Dark Mocha theme */
+    --background: 15 25% 10%;
+    --foreground: 33 33% 93%;
 
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 96%;
+    --card: 15 25% 13%;
+    --card-foreground: 33 33% 93%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 15 25% 13%;
+    --popover-foreground: 33 33% 93%;
 
-    --primary: 0 72% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 15 25% 13%;
+    --primary-foreground: 33 33% 93%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 92%;
+    --secondary: 15 25% 18%;
+    --secondary-foreground: 33 33% 93%;
 
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 15 12% 44%;
+    --muted-foreground: 33 33% 85%;
 
-    --accent: 0 72% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 170 42% 30%;
+    --accent-foreground: 33 33% 93%;
 
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
+    --success: 158 28% 29%;
+    --success-foreground: 33 33% 93%;
 
-    --warning: 41 96% 60%;
-    --warning-foreground: 222 47% 11%;
+    --warning: 38 45% 58%;
+    --warning-foreground: 15 25% 13%;
 
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 4 60% 26%;
+    --destructive-foreground: 33 33% 93%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 72% 50%;
+    --border: 15 25% 20%;
+    --input: 15 25% 16%;
+    --ring: 170 42% 30%;
 
-    --sidebar-background: 0 0% 2%;
-    --sidebar-foreground: 0 0% 94%;
-    --sidebar-primary: 0 72% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 94%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 0 72% 50%;
+    --sidebar-background: 15 25% 13%;
+    --sidebar-foreground: 33 33% 93%;
+    --sidebar-primary: 170 42% 30%;
+    --sidebar-primary-foreground: 33 33% 93%;
+    --sidebar-accent: 15 25% 18%;
+    --sidebar-accent-foreground: 33 33% 93%;
+    --sidebar-border: 15 25% 20%;
+    --sidebar-ring: 170 42% 30%;
   }
 }
 
@@ -236,28 +257,41 @@
 }
 
 .animate-shimmer {
+  /* Espresso Teal for AI thinking animation */
   background: linear-gradient(
     90deg,
-    hsl(var(--muted)) 0%,
+    hsl(170 42% 30%) 0%,
     hsl(var(--background)) 50%,
-    hsl(var(--muted)) 100%
+    hsl(170 42% 30%) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
+  /* Burnished Gold signature flash with soft glow */
   0% {
-    box-shadow: 0 0 0 0 hsl(38 56% 78% / 0.25);
+    box-shadow: 0 0 0 0 hsl(38 45% 58% / 0.18);
   }
   70% {
-    box-shadow: 0 0 14px 2px hsl(38 56% 78% / 0.3);
+    box-shadow: 0 0 10px 2px hsl(38 45% 58% / 0.18);
   }
   100% {
-    box-shadow: 0 0 0 0 hsl(38 56% 78% / 0);
+    box-shadow: 0 0 0 0 hsl(38 45% 58% / 0);
   }
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Signature Gold utility class for Next Step node, active skill path, level-up pulse */
+.signature-gold {
+  color: hsl(38 45% 58%); /* Burnished Gold */
+  filter: drop-shadow(0 0 10px hsl(38 45% 58% / 0.18)); /* Soft glow */
+}
+
+.signature-gold-bg {
+  background-color: hsl(38 45% 58%); /* Burnished Gold */
+  box-shadow: 0 0 10px hsl(38 45% 58% / 0.18); /* Soft glow */
 }

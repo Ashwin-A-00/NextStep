@@ -165,8 +165,8 @@ export default function Dashboard() {
 
           <div className="mt-6 rounded-xl bg-gradient-hero p-6">
             <div className="flex items-start gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-primary shadow-glow">
-                <Rocket className="h-7 w-7 text-primary-foreground" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-signature-gold shadow-accent-glow">
+                <Rocket className="h-7 w-7 text-card" />
               </div>
               <div className="flex-1">
                 <h4 className="text-lg font-semibold text-foreground">
