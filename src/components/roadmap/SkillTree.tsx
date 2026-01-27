@@ -65,11 +65,12 @@ export function SkillTree({ skills, onSkillClick, className }: SkillTreeProps) {
                   <path
                     key={`${prereqId}-${skill.id}`}
                     d={`M ${startX} ${startY} C ${startX} ${midY}, ${endX} ${midY}, ${endX} ${endY}`}
-                    stroke={skill.isUnlocked ? 'hsl(var(--primary))' : 'hsl(var(--border))'}
-                    strokeWidth="2"
+                    stroke={skill.isUnlocked ? '#E63946' : 'hsl(var(--border))'}
+                    strokeWidth="4"
                     strokeDasharray={skill.isUnlocked ? 'none' : '4 4'}
                     fill="none"
-                    className="transition-all duration-300"
+                    opacity={skill.isUnlocked ? '1' : '0.4'}
+                    className="transition-all duration-300 drop-shadow-[0_0_8px_rgba(230,57,70,0.6)]"
                   />
                 );
               })

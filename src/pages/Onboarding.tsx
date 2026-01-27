@@ -5,7 +5,6 @@ import { StepEducation } from '@/components/onboarding/StepEducation';
 import { StepSyllabus } from '@/components/onboarding/StepSyllabus';
 import { StepInterests } from '@/components/onboarding/StepInterests';
 import { StepCareerGoal } from '@/components/onboarding/StepCareerGoal';
-import { Sparkles } from 'lucide-react';
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -45,12 +44,7 @@ export default function Onboarding() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-glow">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-semibold text-foreground">
-              NextStep AI
-            </span>
+            <img src="/logo.png" alt="NextStep AI" className="h-10 w-auto" />
           </div>
           <span className="text-sm text-muted-foreground">
             Step {onboarding.step} of 4

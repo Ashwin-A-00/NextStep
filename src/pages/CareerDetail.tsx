@@ -49,8 +49,12 @@ export default function CareerDetail() {
       {/* Header */}
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-glow text-3xl">
-            {career.icon}
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-glow">
+            {typeof career.icon === 'string' ? (
+              <span className="text-3xl">{career.icon}</span>
+            ) : (
+              <career.icon className="h-8 w-8 text-white" />
+            )}
           </div>
           <div>
             <h1 className="text-3xl font-bold text-foreground">{career.title}</h1>

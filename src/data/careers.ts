@@ -1,4 +1,5 @@
 import type { CareerPath } from "@/types";
+import { Code2, BarChart3, Rocket, Settings2, Palette, Brain, Shield, Cloud } from "lucide-react";
 
 export const allCareers: CareerPath[] = [
   {
@@ -10,7 +11,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["JavaScript", "React", "Node.js", "System Design", "DSA"],
     averageSalary: "$120k",
     growthRate: "+22%",
-    icon: "💻",
+    icon: Code2,
   },
   {
     id: "2",
@@ -21,7 +22,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["Python", "Machine Learning", "Statistics", "SQL", "TensorFlow"],
     averageSalary: "$130k",
     growthRate: "+36%",
-    icon: "📊",
+    icon: BarChart3,
   },
   {
     id: "3",
@@ -32,7 +33,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["Strategy", "Analytics", "Communication", "Agile", "User Research"],
     averageSalary: "$140k",
     growthRate: "+18%",
-    icon: "🚀",
+    icon: Rocket,
   },
   {
     id: "4",
@@ -43,7 +44,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["Docker", "Kubernetes", "AWS", "Linux", "Terraform"],
     averageSalary: "$125k",
     growthRate: "+28%",
-    icon: "⚙️",
+    icon: Settings2,
   },
   {
     id: "5",
@@ -60,7 +61,7 @@ export const allCareers: CareerPath[] = [
     ],
     averageSalary: "$105k",
     growthRate: "+15%",
-    icon: "🎨",
+    icon: Palette,
   },
   {
     id: "6",
@@ -71,7 +72,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["Python", "PyTorch", "MLOps", "Deep Learning", "Cloud Platforms"],
     averageSalary: "$145k",
     growthRate: "+42%",
-    icon: "🤖",
+    icon: Brain,
   },
   {
     id: "7",
@@ -88,7 +89,7 @@ export const allCareers: CareerPath[] = [
     ],
     averageSalary: "$110k",
     growthRate: "+33%",
-    icon: "🔒",
+    icon: Shield,
   },
   {
     id: "8",
@@ -99,7 +100,7 @@ export const allCareers: CareerPath[] = [
     requiredSkills: ["AWS", "Azure", "Architecture", "Networking", "Security"],
     averageSalary: "$155k",
     growthRate: "+25%",
-    icon: "☁️",
+    icon: Cloud,
   },
 ];
 

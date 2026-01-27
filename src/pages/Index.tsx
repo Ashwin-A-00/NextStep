@@ -41,17 +41,13 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-glow">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-semibold text-foreground">
-              NextStep AI
-            </span>
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 overflow-hidden h-20">
+        <div className="mx-auto max-w-6xl flex items-center pl-12 pr-6 h-full relative py-0.5">
+          <span className="text-lg font-semibold text-foreground absolute left-0 z-10">NextStep</span>
+          <div className="flex items-center gap-0 absolute">
+            <img src="/logo.png" alt="NextStep AI" className="h-40 w-auto" />
           </div>
-          <Button variant="ghost" onClick={() => navigate('/login')}>
+          <Button variant="ghost" onClick={() => navigate('/login')} className="hover:text-red-500 hover:bg-red-500/10 ml-auto">
             Get Started
           </Button>
         </div>
@@ -83,12 +79,18 @@ export default function Index() {
               variant="hero"
               size="xl"
               onClick={() => navigate('/login')}
+              className="hover:bg-red-600 hover:text-white"
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Start Your Journey
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => {
+              const footer = document.querySelector('footer');
+              if (footer) {
+                footer.scrollIntoView({ behavior: 'smooth' });
+              }
+            }} className="hover:bg-red-500 hover:text-white hover:border-red-500">
               Learn More
             </Button>
           </div>

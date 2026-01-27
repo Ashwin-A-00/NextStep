@@ -10,22 +10,22 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary/10 text-primary-foreground border border-primary/40 backdrop-blur-md shadow-soft hover:bg-primary/15 hover:border-primary/60 active:scale-[0.98]",
+          "bg-primary/10 text-primary-foreground border border-primary/40 backdrop-blur-md shadow-soft hover:bg-red-600 hover:border-red-600 hover:text-white active:scale-[0.98]",
         destructive:
-          "bg-destructive/15 text-destructive-foreground border border-destructive/50 backdrop-blur-md shadow-soft hover:bg-destructive/25 active:scale-[0.98]",
+          "bg-destructive/15 text-destructive-foreground border border-destructive/50 backdrop-blur-md shadow-soft hover:bg-red-600 hover:border-red-600 hover:text-white active:scale-[0.98]",
         outline:
-          "bg-background/40 text-foreground border border-border/70 backdrop-blur-md hover:bg-background/60 hover:border-border",
+          "bg-background/40 text-foreground border border-border/70 backdrop-blur-md hover:bg-red-500 hover:border-red-500 hover:text-white",
         secondary:
-          "bg-secondary/20 text-secondary-foreground border border-secondary/40 backdrop-blur-md hover:bg-secondary/30",
+          "bg-secondary/20 text-secondary-foreground border border-secondary/40 backdrop-blur-md hover:bg-red-600 hover:border-red-600 hover:text-white",
         ghost:
-          "bg-transparent text-accent-foreground border border-transparent hover:bg-accent/10 hover:border-accent/30 backdrop-blur-md",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-transparent text-accent-foreground border border-transparent hover:bg-red-500/10 hover:border-red-500 hover:text-red-500 backdrop-blur-md",
+        link: "text-primary underline-offset-4 hover:text-red-600 hover:underline",
         gradient:
-          "bg-background/30 text-primary-foreground border border-primary/40 backdrop-blur-lg shadow-glow hover:bg-background/45 active:scale-[0.98]",
+          "bg-background/30 text-primary-foreground border border-primary/40 backdrop-blur-lg shadow-glow hover:bg-red-600 hover:border-red-600 hover:text-white active:scale-[0.98]",
         accent:
-          "bg-accent/12 text-accent-foreground border border-accent/40 backdrop-blur-md shadow-soft hover:bg-accent/18 active:scale-[0.98]",
+          "bg-accent/12 text-accent-foreground border border-accent/40 backdrop-blur-md shadow-soft hover:bg-red-600 hover:border-red-600 hover:text-white active:scale-[0.98]",
         hero:
-          "bg-background/25 text-primary-foreground border border-primary/50 backdrop-blur-lg shadow-glow text-base px-8 py-3 rounded-xl hover:bg-background/40 active:scale-[0.98]",
+          "bg-background/25 text-primary-foreground border border-primary/50 backdrop-blur-lg shadow-glow text-base px-8 py-3 rounded-xl hover:bg-red-600 hover:border-red-600 hover:text-white active:scale-[0.98]",
       },
       size: {
         default: "h-10 px-4 py-2",
