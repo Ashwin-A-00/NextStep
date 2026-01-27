@@ -51,7 +51,7 @@ export default function Index() {
               NextStep AI
             </span>
           </div>
-          <Button variant="ghost" onClick={() => navigate('/onboarding')}>
+          <Button variant="ghost" onClick={() => navigate('/login')}>
             Get Started
           </Button>
         </div>
@@ -65,13 +65,13 @@ export default function Index() {
             <Sparkles className="h-4 w-4" />
             AI-Powered Career Guidance
           </div>
-          
+
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Your Personalized Path to
             <br />
             <span className="text-gradient-primary">Career Success</span>
           </h1>
-          
+
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
             NextStep AI analyzes your syllabus, interests, and goals to create a
             customized roadmap for your dream career. No more confusion about
@@ -82,7 +82,7 @@ export default function Index() {
             <Button
               variant="hero"
               size="xl"
-              onClick={() => navigate('/onboarding')}
+              onClick={() => navigate('/login')}
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Start Your Journey
@@ -145,8 +145,8 @@ export default function Index() {
         </div>
       </section>
 
-      
-           
+
+
 
       <Footer />
     </div>
