@@ -9,15 +9,23 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-medium active:scale-[0.98]",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-soft",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-soft",
-        ghost: "hover:bg-accent/10 hover:text-accent-foreground",
+        default:
+          "bg-primary/10 text-primary-foreground border border-primary/40 backdrop-blur-md shadow-soft hover:bg-primary/15 hover:border-primary/60 active:scale-[0.98]",
+        destructive:
+          "bg-destructive/15 text-destructive-foreground border border-destructive/50 backdrop-blur-md shadow-soft hover:bg-destructive/25 active:scale-[0.98]",
+        outline:
+          "bg-background/40 text-foreground border border-border/70 backdrop-blur-md hover:bg-background/60 hover:border-border",
+        secondary:
+          "bg-secondary/20 text-secondary-foreground border border-secondary/40 backdrop-blur-md hover:bg-secondary/30",
+        ghost:
+          "bg-transparent text-accent-foreground border border-transparent hover:bg-accent/10 hover:border-accent/30 backdrop-blur-md",
         link: "text-primary underline-offset-4 hover:underline",
-        gradient: "gradient-primary text-primary-foreground shadow-glow hover:shadow-lg active:scale-[0.98]",
-        accent: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft hover:shadow-accent-glow active:scale-[0.98]",
-        hero: "gradient-primary text-primary-foreground shadow-glow hover:shadow-lg text-base px-8 py-3 rounded-xl active:scale-[0.98]",
+        gradient:
+          "bg-background/30 text-primary-foreground border border-primary/40 backdrop-blur-lg shadow-glow hover:bg-background/45 active:scale-[0.98]",
+        accent:
+          "bg-accent/12 text-accent-foreground border border-accent/40 backdrop-blur-md shadow-soft hover:bg-accent/18 active:scale-[0.98]",
+        hero:
+          "bg-background/25 text-primary-foreground border border-primary/50 backdrop-blur-lg shadow-glow text-base px-8 py-3 rounded-xl hover:bg-background/40 active:scale-[0.98]",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -4,107 +4,111 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
+    /* NextStep Career Path – Feldgrau & Wheat */
+    /* Feldgrau: #3A4B41 => 145 13% 26% */
+    /* Wheat:    #E6CFA7 => 38 56% 78%  */
+    --background: 145 13% 18%; /* deep Feldgrau */
+    --foreground: 38 56% 90%; /* soft Wheat for readable text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 145 13% 26%; /* Feldgrau surface */
+    --card-foreground: 38 56% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 145 13% 26%;
+    --popover-foreground: 38 56% 90%;
 
-    --primary: 239 84% 67%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 56% 78%; /* Wheat as primary */
+    --primary-foreground: 145 13% 18%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 145 13% 22%; /* slightly lighter Feldgrau */
+    --secondary-foreground: 38 56% 90%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 145 13% 22%;
+    --muted-foreground: 38 30% 70%; /* desaturated Wheat for body text */
 
-    --accent: 160 84% 39%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 38 56% 78%; /* Wheat accents */
+    --accent-foreground: 145 13% 18%;
 
-    --success: 160 84% 39%;
-    --success-foreground: 0 0% 100%;
+    --success: 145 25% 32%; /* a bit brighter green for success */
+    --success-foreground: 38 56% 95%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 41 96% 60%;
+    --warning-foreground: 222 47% 11%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 38 56% 96%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 239 84% 67%;
+    --border: 145 13% 32%;
+    --input: 145 13% 32%;
+    --ring: 38 56% 78%;
 
-    --radius: 0.75rem;
+    --radius: 0.9rem;
 
-    /* Custom tokens for NextStep AI */
-    --gradient-primary: linear-gradient(135deg, hsl(239 84% 67%) 0%, hsl(262 83% 58%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(172 66% 50%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(239 84% 67% / 0.1) 0%, hsl(160 84% 39% / 0.1) 100%);
+    /* Custom tokens for NextStep Career Path – gradients removed for a flat, minimal look */
+    --panel-primary: hsl(145 13% 22%);
+    --panel-accent: hsl(38 56% 78%);
+    --panel-card: hsl(145 13% 24%);
     
-    --shadow-soft: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
-    --shadow-medium: 0 4px 16px -4px hsl(222 47% 11% / 0.12);
-    --shadow-large: 0 8px 32px -8px hsl(222 47% 11% / 0.16);
-    --shadow-glow: 0 0 24px -4px hsl(239 84% 67% / 0.3);
-    --shadow-accent-glow: 0 0 24px -4px hsl(160 84% 39% / 0.3);
+    --shadow-soft: 0 10px 26px hsl(145 13% 10% / 0.45);
+    --shadow-medium: 0 14px 32px hsl(145 13% 8% / 0.5);
+    --shadow-large: 0 20px 50px hsl(145 13% 6% / 0.6);
+    /* Sleek glows: very subtle, for premium feel */
+    --shadow-glow: 0 0 0 1px hsl(38 56% 78% / 0.18), 0 6px 18px hsl(145 13% 10% / 0.22);
+    --shadow-accent-glow: 0 0 0 1px hsl(38 40% 84% / 0.18), 0 6px 16px hsl(145 13% 10% / 0.2);
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 239 84% 67%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 239 84% 67%;
+    --sidebar-background: 145 13% 20%;
+    --sidebar-foreground: 38 56% 88%;
+    --sidebar-primary: 38 56% 78%;
+    --sidebar-primary-foreground: 145 13% 18%;
+    --sidebar-accent: 145 13% 24%;
+    --sidebar-accent-foreground: 38 56% 88%;
+    --sidebar-border: 145 13% 32%;
+    --sidebar-ring: 38 56% 78%;
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    /* Dark mode aligned with Feldgrau & Wheat palette */
+    --background: 145 13% 12%;
+    --foreground: 38 56% 88%;
 
-    --card: 222 47% 9%;
-    --card-foreground: 210 40% 98%;
+    --card: 145 13% 20%;
+    --card-foreground: 38 56% 88%;
 
-    --popover: 222 47% 9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 145 13% 20%;
+    --popover-foreground: 38 56% 88%;
 
-    --primary: 239 84% 67%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 56% 78%;
+    --primary-foreground: 145 13% 12%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 145 13% 24%;
+    --secondary-foreground: 38 56% 88%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 145 13% 22%;
+    --muted-foreground: 38 30% 72%;
 
-    --accent: 160 84% 39%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 38 56% 78%;
+    --accent-foreground: 145 13% 12%;
 
-    --success: 160 84% 39%;
-    --success-foreground: 0 0% 100%;
+    --success: 145 25% 32%;
+    --success-foreground: 38 56% 96%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 41 96% 60%;
+    --warning-foreground: 222 47% 11%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 38 56% 96%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 239 84% 67%;
+    --border: 145 13% 28%;
+    --input: 145 13% 28%;
+    --ring: 38 56% 78%;
 
-    --sidebar-background: 222 47% 9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 239 84% 67%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 239 84% 67%;
+    --sidebar-background: 145 13% 10%;
+    --sidebar-foreground: 38 56% 88%;
+    --sidebar-primary: 38 56% 78%;
+    --sidebar-primary-foreground: 145 13% 12%;
+    --sidebar-accent: 145 13% 24%;
+    --sidebar-accent-foreground: 38 56% 88%;
+    --sidebar-border: 145 13% 28%;
+    --sidebar-ring: 38 56% 78%;
   }
 }
 
@@ -124,20 +128,21 @@
 }
 
 @layer utilities {
+  /* Flat surfaces – no gradients */
   .gradient-primary {
-    background: var(--gradient-primary);
+    background-color: var(--panel-primary);
   }
 
   .gradient-accent {
-    background: var(--gradient-accent);
+    background-color: var(--panel-accent);
   }
 
   .gradient-card {
-    background: var(--gradient-card);
+    background-color: var(--panel-card);
   }
 
   .gradient-hero {
-    background: var(--gradient-hero);
+    background-color: hsl(var(--background));
   }
 
   .shadow-soft {
@@ -161,17 +166,11 @@
   }
 
   .text-gradient-primary {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: hsl(var(--accent-foreground));
   }
 
   .text-gradient-accent {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: hsl(var(--primary));
   }
 }
 
@@ -247,4 +246,20 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 hsl(38 56% 78% / 0.25);
+  }
+  70% {
+    box-shadow: 0 0 14px 2px hsl(38 56% 78% / 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 hsl(38 56% 78% / 0);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

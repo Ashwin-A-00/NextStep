@@ -1,265 +1,463 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/stores/userStore';
-import { SkillTree } from '@/components/roadmap/SkillTree';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { BookOpen, Clock, ExternalLink, Play, Check, Trophy } from 'lucide-react';
-import type { Skill } from '@/types';
+  Compass,
+  Map,
+  Trophy,
+  ArrowLeft,
+  Lock,
+  CheckCircle2,
+  Play,
+  BookOpen,
+  Award,
+  Zap,
+  X,
+  ExternalLink,
+} from 'lucide-react';
 
-// Mock skill data
-const mockSkills: Skill[] = [
+interface SkillNode {
+  id: string;
+  title: string;
+  description: string;
+  type: 'skill' | 'course' | 'certification';
+  xp: number;
+  status: 'locked' | 'available' | 'in_progress' | 'completed';
+  position: { x: number; y: number };
+  prerequisites: string[];
+  resources: { name: string; url: string }[];
+}
+
+const MOCK_NODES: SkillNode[] = [
+  {
+    id: 'programming-basics',
+    title: 'Programming Basics',
+    description: 'Learn fundamental programming concepts: variables, loops, conditionals, and functions.',
+    type: 'skill',
+    xp: 100,
+    status: 'available',
+    position: { x: 50, y: 22 },
+    prerequisites: [],
+    resources: [
+      { name: 'freeCodeCamp', url: 'https://freecodecamp.org' },
+      { name: 'Codecademy', url: 'https://codecademy.com' },
+    ],
+  },
   {
     id: 'html-css',
-    name: 'HTML & CSS',
-    description: 'Build the foundation of web pages with semantic HTML and modern CSS.',
-    category: 'technical',
-    difficulty: 'beginner',
-    prerequisites: [],
-    estimatedHours: 10,
-    resources: [
-      { id: '1', title: 'MDN Web Docs', type: 'article', url: '#', platform: 'MDN' },
-    ],
-    isCompleted: true,
-    isUnlocked: true,
-    position: { x: 200, y: 0 },
+    title: 'HTML & CSS',
+    description: 'Master the building blocks of web pages: structure and styling.',
+    type: 'skill',
+    xp: 80,
+    status: 'locked',
+    position: { x: 28, y: 38 },
+    prerequisites: ['programming-basics'],
+    resources: [{ name: 'MDN Web Docs', url: 'https://developer.mozilla.org' }],
   },
   {
     id: 'javascript',
-    name: 'JavaScript',
-    description: 'Master the language of the web and interactive programming.',
-    category: 'technical',
-    difficulty: 'beginner',
-    prerequisites: ['html-css'],
-    estimatedHours: 40,
-    resources: [
-      { id: '2', title: 'JavaScript.info', type: 'article', url: '#', platform: 'Web' },
-    ],
-    isCompleted: true,
-    isUnlocked: true,
-    position: { x: 200, y: 150 },
+    title: 'JavaScript',
+    description: 'Add interactivity to web pages with the language of the web.',
+    type: 'course',
+    xp: 150,
+    status: 'locked',
+    position: { x: 72, y: 38 },
+    prerequisites: ['programming-basics'],
+    resources: [{ name: 'JavaScript.info', url: 'https://javascript.info' }],
   },
   {
     id: 'react',
-    name: 'React',
+    title: 'React Framework',
     description: 'Build modern user interfaces with component-based architecture.',
-    category: 'technical',
-    difficulty: 'intermediate',
-    prerequisites: ['javascript'],
-    estimatedHours: 30,
-    resources: [
-      { id: '3', title: 'React Docs', type: 'article', url: '#', platform: 'React' },
-    ],
-    isCompleted: false,
-    isUnlocked: true,
-    position: { x: 100, y: 300 },
+    type: 'course',
+    xp: 200,
+    status: 'locked',
+    position: { x: 50, y: 54 },
+    prerequisites: ['html-css', 'javascript'],
+    resources: [{ name: 'React Docs', url: 'https://react.dev' }],
   },
   {
-    id: 'typescript',
-    name: 'TypeScript',
-    description: 'Add type safety to your JavaScript applications.',
-    category: 'technical',
-    difficulty: 'intermediate',
-    prerequisites: ['javascript'],
-    estimatedHours: 20,
-    resources: [
-      { id: '4', title: 'TypeScript Handbook', type: 'article', url: '#', platform: 'TS' },
-    ],
-    isCompleted: false,
-    isUnlocked: true,
-    position: { x: 300, y: 300 },
+    id: 'git',
+    title: 'Git & GitHub',
+    description: 'Version control and collaboration for developers.',
+    type: 'skill',
+    xp: 75,
+    status: 'locked',
+    position: { x: 16, y: 60 },
+    prerequisites: ['programming-basics'],
+    resources: [{ name: 'GitHub Skills', url: 'https://skills.github.com' }],
   },
   {
-    id: 'node',
-    name: 'Node.js',
-    description: 'Build server-side applications with JavaScript.',
-    category: 'technical',
-    difficulty: 'intermediate',
+    id: 'api-integration',
+    title: 'API Integration',
+    description: 'Connect applications with external services and data.',
+    type: 'skill',
+    xp: 120,
+    status: 'locked',
+    position: { x: 84, y: 60 },
     prerequisites: ['javascript'],
-    estimatedHours: 25,
-    resources: [
-      { id: '5', title: 'Node.js Docs', type: 'article', url: '#', platform: 'Node' },
-    ],
-    isCompleted: false,
-    isUnlocked: true,
-    position: { x: 500, y: 300 },
-  },
-  {
-    id: 'system-design',
-    name: 'System Design',
-    description: 'Design scalable and reliable distributed systems.',
-    category: 'technical',
-    difficulty: 'advanced',
-    prerequisites: ['react', 'node'],
-    estimatedHours: 50,
     resources: [],
-    isCompleted: false,
-    isUnlocked: false,
-    position: { x: 200, y: 450 },
   },
   {
-    id: 'aws',
-    name: 'AWS Certification',
-    description: 'Get certified in Amazon Web Services cloud platform.',
-    category: 'certification',
-    difficulty: 'advanced',
-    prerequisites: ['node', 'system-design'],
-    estimatedHours: 60,
+    id: 'full-stack',
+    title: 'Full Stack Development',
+    description: 'Combine frontend and backend skills to build complete applications.',
+    type: 'course',
+    xp: 250,
+    status: 'locked',
+    position: { x: 50, y: 76 },
+    prerequisites: ['react', 'api-integration'],
     resources: [],
-    isCompleted: false,
-    isUnlocked: false,
-    position: { x: 400, y: 450 },
+  },
+  {
+    id: 'aws-cert',
+    title: 'AWS Certification',
+    description: 'Demonstrate cloud computing expertise with official certification.',
+    type: 'certification',
+    xp: 300,
+    status: 'locked',
+    position: { x: 50, y: 88 },
+    prerequisites: ['full-stack'],
+    resources: [{ name: 'AWS Training', url: 'https://aws.amazon.com/training' }],
   },
 ];
 
 export default function Roadmap() {
-  const { profile, completeSkill, addXP } = useUserStore();
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const { profile, addXP } = useUserStore();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleSkillComplete = (skill: Skill) => {
-    completeSkill(skill.id);
-    addXP(100);
-    setSelectedSkill(null);
+  const [nodes, setNodes] = useState<SkillNode[]>(MOCK_NODES);
+  const [selectedNode, setSelectedNode] = useState<SkillNode | null>(null);
+  const [completing, setCompleting] = useState(false);
+
+  useEffect(() => {
+    if (!profile) {
+      navigate('/onboarding');
+    }
+  }, [profile, navigate]);
+
+  const handleNodeClick = (node: SkillNode) => {
+    if (node.status !== 'locked') {
+      setSelectedNode(node);
+    }
   };
 
-  const completedCount = mockSkills.filter((s) => s.isCompleted).length;
-  const progress = Math.round((completedCount / mockSkills.length) * 100);
+  const handleCompleteNode = async () => {
+    if (!selectedNode || selectedNode.status === 'completed') return;
+
+    setCompleting(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    setNodes((prev) =>
+      prev.map((n) => {
+        if (n.id === selectedNode.id) {
+          return { ...n, status: 'completed' as const };
+        }
+        if (n.prerequisites.includes(selectedNode.id)) {
+          const allPrereqsMet = n.prerequisites.every((pid) => {
+            const prereqNode = prev.find((p) => p.id === pid);
+            return prereqNode?.status === 'completed' || pid === selectedNode.id;
+          });
+          if (allPrereqsMet && n.status === 'locked') {
+            return { ...n, status: 'available' as const };
+          }
+        }
+        return n;
+      }),
+    );
+
+    addXP(selectedNode.xp);
+
+    toast({
+      title: `+${selectedNode.xp} XP`,
+      description: `You completed "${selectedNode.title}".`,
+    });
+
+    setSelectedNode((prev) => (prev ? { ...prev, status: 'completed' } : prev));
+    setCompleting(false);
+  };
+
+  const getNodeIcon = (type: SkillNode['type']) => {
+    switch (type) {
+      case 'skill':
+        return <Zap className="w-5 h-5" />;
+      case 'course':
+        return <BookOpen className="w-5 h-5" />;
+      case 'certification':
+        return <Award className="w-5 h-5" />;
+      default:
+        return <Zap className="w-5 h-5" />;
+    }
+  };
+
+  const getNodeStyle = (node: SkillNode) => {
+    const base =
+      'absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300';
+
+    switch (node.status) {
+      case 'locked':
+        return `${base} opacity-30 grayscale cursor-not-allowed`;
+      case 'available':
+        return `${base} cursor-pointer`;
+      case 'in_progress':
+        return `${base} cursor-pointer ring-2 ring-warning`;
+      case 'completed':
+        return `${base} cursor-pointer`;
+      default:
+        return base;
+    }
+  };
+
+  const completedCount = nodes.filter((n) => n.status === 'completed').length;
+  const totalXP = nodes.reduce((sum, n) => sum + n.xp, 0);
+  const earnedXP = nodes.reduce(
+    (sum, n) => sum + (n.status === 'completed' ? n.xp : 0),
+    0,
+  );
+  const progress = Math.round((earnedXP / totalXP) * 100);
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Your Skill Roadmap</h1>
-          <p className="mt-1 text-muted-foreground">
-            {profile?.careerGoal
-              ? `Path to becoming a ${profile.careerGoal}`
-              : 'Your personalized learning journey'}
-          </p>
-        </div>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background grid */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(38_56%_78%/0.12),transparent_55%),radial-gradient(circle_at_bottom,hsl(145_13%_18%/0.85),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(hsl(var(--muted)/0.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--muted)/0.05)_1px,transparent_1px)] bg-[size:80px_80px]" />
 
-        <div className="text-right">
-          <p className="text-sm text-muted-foreground">Overall Progress</p>
-          <p className="text-2xl font-bold text-foreground">{progress}%</p>
-          <p className="text-sm text-muted-foreground">
-            {completedCount} of {mockSkills.length} skills
-          </p>
-        </div>
-      </div>
+      <div className="relative min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="border-b border-border bg-card/60 backdrop-blur-md sticky top-0 z-40">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link to="/dashboard">
+                <Button variant="ghost" size="icon">
+                  <ArrowLeft className="w-5 h-5" />
+                </Button>
+              </Link>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Map className="w-5 h-5 text-primary" />
+                  <span className="text-lg font-mono font-bold">Skill Map</span>
+                </div>
+                <p className="text-xs text-muted-foreground font-mono">
+                  {profile?.careerGoal
+                    ? `Path to become a ${profile.careerGoal}`
+                    : 'Interactive roadmap of your engineering journey'}
+                </p>
+              </div>
+            </div>
 
-      {/* Progress Bar */}
-      <div className="space-y-2">
-        <div className="h-3 overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full rounded-full gradient-primary transition-all duration-1000"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>Beginner</span>
-          <span>Intermediate</span>
-          <span>Advanced</span>
-          <span>Expert</span>
-        </div>
-      </div>
+            <div className="flex items-center gap-6 text-sm font-mono">
+              <div className="text-right">
+                <p className="text-xs text-muted-foreground">Roadmap XP</p>
+                <p className="text-base text-foreground">
+                  {earnedXP} / {totalXP}
+                </p>
+              </div>
+              <div className="hidden sm:flex flex-col items-end gap-1">
+                <p className="text-xs text-muted-foreground">Completion</p>
+                <div className="h-1.5 w-32 overflow-hidden rounded-full bg-secondary/40">
+                  <div
+                    className="h-full rounded-full bg-primary/80 transition-all duration-700"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
 
-      {/* Skill Tree */}
-      <SkillTree
-        skills={mockSkills}
-        onSkillClick={setSelectedSkill}
-        className="min-h-[600px]"
-      />
+        {/* Map */}
+        <main className="flex-1 relative overflow-hidden">
+          <div className="absolute inset-0 p-8">
+            {/* Connection lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
+              {nodes.map((node) =>
+                node.prerequisites.map((pid) => {
+                  const prereq = nodes.find((n) => n.id === pid);
+                  if (!prereq) return null;
 
-      {/* Skill Detail Modal */}
-      <Dialog open={!!selectedSkill} onOpenChange={() => setSelectedSkill(null)}>
-        {selectedSkill && (
-          <DialogContent className="sm:max-w-lg">
-            <DialogHeader>
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary shadow-glow">
-                  <BookOpen className="h-6 w-6 text-primary-foreground" />
+                  const isActive = node.status !== 'locked';
+
+                  return (
+                    <line
+                      key={`${pid}-${node.id}`}
+                      x1={`${prereq.position.x}%`}
+                      y1={`${prereq.position.y}%`}
+                      x2={`${node.position.x}%`}
+                      y2={`${node.position.y}%`}
+                      stroke={isActive ? 'hsl(var(--primary))' : 'hsl(var(--muted))'}
+                      strokeWidth={isActive ? 2 : 1.5}
+                      strokeDasharray={isActive ? '0' : '5,6'}
+                      className="transition-all duration-300 opacity-60"
+                    />
+                  );
+                }),
+              )}
+            </svg>
+
+            {/* Nodes */}
+            {nodes.map((node) => (
+              <div
+                key={node.id}
+                onClick={() => handleNodeClick(node)}
+                className={getNodeStyle(node)}
+                style={{
+                  left: `${node.position.x}%`,
+                  top: `${node.position.y}%`,
+                }}
+              >
+                <div
+                  className={`
+                    w-20 h-20 rounded-xl flex items-center justify-center
+                    border transition-all duration-300 backdrop-blur-md
+                    ${
+                      node.status === 'completed'
+                        ? 'bg-success/20 border-success text-success-foreground shadow-soft'
+                        : node.status === 'available'
+                        ? 'bg-primary/10 border-primary/60 text-primary shadow-glow animate-pulse-glow'
+                        : node.status === 'in_progress'
+                        ? 'bg-warning/20 border-warning text-warning shadow-soft'
+                        : 'bg-background/20 border-border/50 text-muted-foreground'
+                    }
+                  `}
+                >
+                  {node.status === 'locked' ? (
+                    <Lock className="w-5 h-5" />
+                  ) : node.status === 'completed' ? (
+                    <CheckCircle2 className="w-6 h-6" />
+                  ) : (
+                    getNodeIcon(node.type)
+                  )}
+                </div>
+                <p
+                  className={`
+                    text-xs font-mono text-center mt-2 max-w-28 truncate
+                    ${node.status === 'locked' ? 'text-muted-foreground' : 'text-foreground'}
+                  `}
+                >
+                  {node.title}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Legend */}
+          <div className="absolute bottom-4 left-4 bg-card/90 backdrop-blur-sm border border-border rounded-md p-4 shadow-soft">
+            <p className="text-xs font-mono text-muted-foreground mb-2">LEGEND</p>
+            <div className="space-y-2 text-xs font-mono">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-success" />
+                <span>Completed</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded border border-primary bg-primary/20" />
+                <span>Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-muted/40 border border-muted-foreground/30" />
+                <span>Locked</span>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        {/* Node detail panel */}
+        {selectedNode && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="relative w-full max-w-lg rounded-2xl border border-border bg-card/95 shadow-large p-6">
+              <button
+                onClick={() => setSelectedNode(null)}
+                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-start gap-4 mb-4">
+                <div
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center border
+                    ${
+                      selectedNode.status === 'completed'
+                        ? 'bg-success/20 border-success text-success-foreground'
+                        : 'bg-primary/15 border-primary/60 text-primary'
+                    }
+                  `}
+                >
+                  {selectedNode.status === 'completed' ? (
+                    <CheckCircle2 className="w-7 h-7" />
+                  ) : (
+                    getNodeIcon(selectedNode.type)
+                  )}
                 </div>
                 <div>
-                  <DialogTitle className="text-xl">{selectedSkill.name}</DialogTitle>
-                  <DialogDescription className="capitalize">
-                    {selectedSkill.category} • {selectedSkill.difficulty}
-                  </DialogDescription>
-                </div>
-              </div>
-            </DialogHeader>
-
-            <div className="space-y-6">
-              <p className="text-muted-foreground">{selectedSkill.description}</p>
-
-              <div className="flex items-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span>{selectedSkill.estimatedHours} hours</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Trophy className="h-4 w-4 text-accent" />
-                  <span className="text-accent">+100 XP</span>
+                  <span className="text-[10px] font-mono text-primary uppercase tracking-[0.18em]">
+                    {selectedNode.type}
+                  </span>
+                  <h3 className="text-xl font-mono font-bold text-foreground">
+                    {selectedNode.title}
+                  </h3>
                 </div>
               </div>
 
-              {selectedSkill.resources.length > 0 && (
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground">Resources</h4>
+              <p className="text-sm text-muted-foreground mb-4">{selectedNode.description}</p>
+
+              <div className="flex items-center gap-4 mb-6 text-sm font-mono">
+                <div className="flex items-center gap-1.5 text-primary">
+                  <Zap className="w-4 h-4" />
+                  <span>+{selectedNode.xp} XP</span>
+                </div>
+                {selectedNode.status === 'completed' && (
+                  <span className="flex items-center gap-1 text-success">
+                    <CheckCircle2 className="w-4 h-4" />
+                    Completed
+                  </span>
+                )}
+              </div>
+
+              {selectedNode.resources.length > 0 && (
+                <div className="mb-6">
+                  <p className="text-xs font-mono text-muted-foreground mb-2">RESOURCES</p>
                   <div className="space-y-2">
-                    {selectedSkill.resources.map((resource) => (
+                    {selectedNode.resources.map((resource, i) => (
                       <a
-                        key={resource.id}
+                        key={i}
                         href={resource.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between rounded-lg border border-border bg-background p-3 transition-all hover:border-primary/30"
+                        className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-3 text-sm text-primary hover:border-primary/60 hover:bg-background/90"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary text-xs font-medium">
-                            {resource.platform}
-                          </div>
-                          <span className="font-medium">{resource.title}</span>
+                        <div className="flex items-center gap-2">
+                          <ExternalLink className="w-3 h-3" />
+                          <span>{resource.name}</span>
                         </div>
-                        <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Open</span>
                       </a>
                     ))}
                   </div>
                 </div>
               )}
 
-              <div className="flex gap-3 pt-2">
+              {selectedNode.status !== 'completed' && (
                 <Button
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => setSelectedSkill(null)}
+                  onClick={handleCompleteNode}
+                  disabled={completing || selectedNode.status === 'locked'}
+                  className="w-full mt-2 font-mono bg-primary/20 text-primary-foreground border border-primary/60 backdrop-blur-md hover:bg-primary/30"
                 >
-                  Close
+                  {completing ? (
+                    <Compass className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4 mr-2" />
+                      Mark as Complete (+{selectedNode.xp} XP)
+                    </>
+                  )}
                 </Button>
-                {selectedSkill.isCompleted ? (
-                  <Button disabled className="flex-1" variant="accent">
-                    <Check className="mr-2 h-4 w-4" />
-                    Completed
-                  </Button>
-                ) : (
-                  <Button
-                    variant="hero"
-                    className="flex-1"
-                    onClick={() => handleSkillComplete(selectedSkill)}
-                  >
-                    <Play className="mr-2 h-4 w-4" />
-                    Mark Complete
-                  </Button>
-                )}
-              </div>
+              )}
             </div>
-          </DialogContent>
+          </div>
         )}
-      </Dialog>
+      </div>
     </div>
   );
 }
