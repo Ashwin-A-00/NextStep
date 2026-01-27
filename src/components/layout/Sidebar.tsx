@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useUserStore } from '@/stores/userStore';
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
@@ -21,7 +22,14 @@ const navItems = [
 
 export function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { profile, resetOnboarding } = useUserStore();
+
+  const handleLogout = () => {
+    resetOnboarding();
+    navigate('/');
+  };
 
   return (
     <aside
@@ -81,11 +89,39 @@ export function Sidebar() {
       {/* Footer */}
       <div className="border-t border-border p-4">
         {!isCollapsed && (
-          <div className="rounded-lg bg-gradient-hero p-4">
-            <p className="text-xs font-medium text-foreground">Pro Tip</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Complete your daily tasks to earn XP and level up faster!
-            </p>
+          <div className="space-y-3">
+            <div className="rounded-lg bg-gradient-hero p-4">
+              <p className="text-xs font-medium text-foreground">Pro Tip</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Complete your daily tasks to earn XP and level up faster!
+              </p>
+            </div>
+
+            {/* Logged-in user + logout */}
+            <div className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full gradient-primary text-xs font-semibold text-primary-foreground">
+                  {profile?.name?.[0]?.toUpperCase() || '👤'}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-medium text-foreground">
+                    {profile?.name || 'Student'}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">
+                    View profile & progress
+                  </span>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={handleLogout}
+                title="Log out"
+              >
+                <ChevronLeft className="h-3 w-3 rotate-180" />
+              </Button>
+            </div>
           </div>
         )}
       </div>

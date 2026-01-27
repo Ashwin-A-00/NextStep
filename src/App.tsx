@@ -13,16 +13,18 @@ import CareerDetail from "./pages/CareerDetail";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/layout/AppLayout";
+import Login from "./pages/Login";
+import Subscription from "./pages/Subscription";
 
 const queryClient = new QueryClient();
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isOnboardingComplete } = useUserStore();
-  
+
   if (!isOnboardingComplete) {
     return <Navigate to="/onboarding" replace />;
   }
-  
+
   return <>{children}</>;
 }
 
@@ -34,6 +36,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/subscription" element={<Subscription />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route
             element={

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserStore } from '@/stores/userStore';
 import { LevelBadge } from '@/components/dashboard/LevelBadge';
 import { Button } from '@/components/ui/button';
@@ -23,11 +23,25 @@ const mockBadges = [
 ];
 
 export default function Profile() {
-  const { profile, resetOnboarding } = useUserStore();
+  const { profile, resetOnboarding, setProfile } = useUserStore();
   const navigate = useNavigate();
 
   const [editOpen, setEditOpen] = useState(false);
   const [editStep, setEditStep] = useState<1 | 2 | 3 | 4>(1);
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+  const [usernameInput, setUsernameInput] = useState('');
+
+  // Initialize username from profile or localStorage
+  useEffect(() => {
+    const stored =
+      profile?.name ||
+      (typeof window !== 'undefined'
+        ? localStorage.getItem('nextstep-username') || ''
+        : '');
+    setUsernameInput(stored || 'Student');
+  }, [profile?.name]);
+
+  const effectiveUsername = usernameInput || profile?.name || 'Student';
 
   const handleReset = () => {
     resetOnboarding();
@@ -43,6 +57,61 @@ export default function Profile() {
           <p className="mt-1 text-muted-foreground">
             Manage your account and view your progress
           </p>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Username:</span>{' '}
+            </span>
+            {isEditingUsername ? (
+              <form
+                className="flex items-center gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const newName = usernameInput.trim() || 'Student';
+                  if (profile) {
+                    setProfile({ ...profile, name: newName });
+                  }
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('nextstep-username', newName);
+                  }
+                  setUsernameInput(newName);
+                  setIsEditingUsername(false);
+                }}
+              >
+                <input
+                  className="h-8 rounded-md border border-border bg-background px-2 text-sm text-foreground"
+                  value={usernameInput}
+                  onChange={(e) => setUsernameInput(e.target.value)}
+                  autoFocus
+                />
+                <Button type="submit" size="xs" variant="outline">
+                  Save
+                </Button>
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="ghost"
+                  onClick={() => setIsEditingUsername(false)}
+                >
+                  Cancel
+                </Button>
+              </form>
+            ) : (
+              <>
+                <span className="text-sm text-foreground font-medium">
+                  {effectiveUsername}
+                </span>
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="ghost"
+                  className="h-6 px-2 text-xs"
+                  onClick={() => setIsEditingUsername(true)}
+                >
+                  Edit
+                </Button>
+              </>
+            )}
+          </div>
         </div>
         <Button variant="outline" onClick={handleReset}>
           <LogOut className="mr-2 h-4 w-4" />
