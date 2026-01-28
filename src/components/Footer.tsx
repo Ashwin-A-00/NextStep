@@ -97,11 +97,8 @@ const Footer = () => {
       <div className="border-t border-neutral-800 bg-black">
         <div className="mx-auto max-w-7xl px-6 py-6">
           <div className="flex flex-col space-y-3 text-center md:flex-row md:items-center md:justify-between md:space-y-0">
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-neutral-500 text-center">
               © 2025 NextStep – All Rights Reserved
-            </p>
-            <p className="text-xs text-neutral-600">
-              This is a demo student project for a hackathon event.
             </p>
           </div>
         </div>

@@ -324,6 +324,14 @@ export default function Profile() {
         </div>
       </div>
 
+            {/* Blur background when editing */}
+{editOpen && (
+  <div
+    className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+    onClick={() => setEditOpen(false)}
+  />
+)}
+
       {/* Full-screen wizard that reuses onboarding UI for editing */}
       <ProfileEditWizard
         open={editOpen}
